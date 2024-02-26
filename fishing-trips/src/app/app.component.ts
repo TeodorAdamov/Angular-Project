@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ApiService } from './api.service';
 import { CommonModule } from '@angular/common';
@@ -15,13 +15,17 @@ import { MainComponent } from './core/main/main.component';
 })
 export class AppComponent implements OnInit {
     title = 'fishing-trips';
-
+    siteLogo: string = '';
     constructor(private api: ApiService) { }
 
     ngOnInit() {
         this.api.items$.subscribe(data => {
             console.log(data);
 
+            this.api.getStorage().subscribe(url => {
+                this.siteLogo = url;
+            })
         })
     }
 }
+

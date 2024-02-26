@@ -1,13 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, collection, collectionData } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Storage, StorageReference, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage';
+import { Observable, from, switchMap } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
 
-    firestore: Firestore = inject(Firestore);
+    private firestore: Firestore = inject(Firestore);
+    private storage: Storage = inject(Storage);
     items$: Observable<any[]>;
 
     constructor() {
@@ -17,5 +19,10 @@ export class ApiService {
 
     getCollection(): Observable<any> {
         return this.items$;
+    }
+
+    getStorage(): Observable<string> {
+        const imageRef: StorageReference = ref(this.storage, 'gs://softuni-angular-project-dev.appspot.com/I am looking fo 3bf91462-c234-426b-9325-92a9cde0f0ca.png');
+        return from(getDownloadURL(imageRef))
     }
 }
