@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "softuni-angular-project-dev": {
+      "hosting": {
+        "fishing-trips": [
+          "softuni-angular-project-dev"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "softuni-angular-project-dev"
+  }
+}

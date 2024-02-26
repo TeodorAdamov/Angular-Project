@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Fishing-App": {
+    "fishing-trips": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/fishing-app",
+            "outputPath": "dist/fishing-trips",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -57,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Fishing-App:build:production"
+              "buildTarget": "fishing-trips:build:production"
             },
             "development": {
-              "buildTarget": "Fishing-App:build:development"
+              "buildTarget": "fishing-trips:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,7 +68,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "Fishing-App:build"
+            "buildTarget": "fishing-trips:build"
           }
         },
         "test": {
@@ -88,6 +88,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "fishing-trips:build:production",
+              "serveTarget": "fishing-trips:serve:production"
+            },
+            "development": {
+              "buildTarget": "fishing-trips:build:development",
+              "serveTarget": "fishing-trips:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

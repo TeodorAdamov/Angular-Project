@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "fishing-trips",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}
