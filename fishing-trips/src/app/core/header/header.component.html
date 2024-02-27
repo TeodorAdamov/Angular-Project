@@ -1,10 +1,10 @@
 <div class="header-section">
     <header class="site-header">
         <div class="site-logo">
-            <a><img src="{{siteLogo}}" alt=""></a>
+            <a routerLink="/home"><img src="{{siteLogo}}" alt=""></a>
         </div>
         <div class="site-create">
-            <a>
+            <a routerLink="/create">
                 <p>SAVE A TRIP</p>
             </a>
         </div>
@@ -12,7 +12,7 @@
             <ul>
                 <div class="user">
                     <li><a>Trips</a></li>
-                    <li><a>Logout</a></li>
+                    <li><a (click)="logout()">Logout</a></li>
                 </div>
                 <div class="guest">
                     <li><a routerLink="/login">Login</a></li>

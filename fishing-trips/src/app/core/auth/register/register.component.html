@@ -1,20 +1,24 @@
-<form action="action_page.php" method="post">
+<form #registerForm="ngForm" (ngSubmit)="submitHandler(registerForm)">
     <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+        <label for="email"><b>Email</b></label>
+        <input ngModel type="text" placeholder="Enter Email" name="email" required>
 
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
+        <label for="password"><b>Password</b></label>
+        <input ngModel type="password" placeholder="Enter Password" name="password" required>
 
-        <label for="psw-repeat"><b>Password</b></label>
-        <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+        <label for="password-repeat"><b>Password</b></label>
+        <input ngModel type="password" placeholder="Repeat Password" name="password-repeat" required>
 
         <div class="register-btn">
             <button type="submit">Register</button>
+            <div class="google">
+                <button (click)="googleSignIn()" type="button" class="googlebtn"><i
+                        class="fa-brands fa-google fa-2xl"></i>Sign in with google</button>
+            </div>
         </div>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
-        <button type="button" class="cancelbtn">Cancel</button>
+        <a routerLink="/home"><button type="button" class="cancelbtn">Cancel</button></a>
     </div>
 </form>

@@ -21,8 +21,11 @@ export class ApiService {
         return this.items$;
     }
 
-    getStorage(): Observable<string> {
-        const imageRef: StorageReference = ref(this.storage, 'gs://softuni-angular-project-dev.appspot.com/I am looking fo 3bf91462-c234-426b-9325-92a9cde0f0ca.png');
+    getItemFromFirebaseStorage(url: string): Observable<string> {
+        const imageRef: StorageReference = ref(this.storage, url);
         return from(getDownloadURL(imageRef))
     }
+
+
+
 }
