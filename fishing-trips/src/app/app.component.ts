@@ -22,9 +22,7 @@ export class AppComponent implements OnInit {
         this.api.items$.subscribe(data => {
             console.log(data);
 
-            this.api.getStorage().subscribe(url => {
-                this.siteLogo = url;
-            })
+           
         })
     }
 }

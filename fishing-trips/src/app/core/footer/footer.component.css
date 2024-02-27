@@ -1,0 +1,16 @@
+app-footer {
+    margin: 0 auto;
+}
+
+.site-footer {
+    background-color: #89948A;
+    display: flex;
+    align-items: center;
+}
+
+p {
+    flex: 1 0 auto;
+    color: #E4D9C2;
+    padding: 0.5em;
+    text-align: center;
+}
