@@ -13,6 +13,10 @@
 
 a {
     color: #E4D9C2;
+    background-color: #89948A;
+}
+a:hover {
+    opacity: 0.5;
 }
 
 .site-logo {
@@ -49,4 +53,23 @@ a {
 .guest {
     display: flex;
     gap: 2em;
+}
+
+.welcome-message {
+    margin-right: 1em;
+    display: flex;
+    gap: 1em;
+    align-content: center;
+}
+
+.profile-image {
+    width: 3em;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
 }

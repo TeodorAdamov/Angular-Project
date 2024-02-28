@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://use.fontawesome.com/releases/v6.5.1/css/all.css');
+
 /* RESET CSS  */
 /* You can add global styles to this file, and also import other style files */
 * {
@@ -134,21 +135,33 @@ a {
     flex: 1;
 }
 
-@media (min-width: 600px) {
-    .site-main {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 2em;
-    }
+
+
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-@media (min-width: 2150px) {
-    .site-main {
-        max-width: 60em;
-        margin: 0 auto;
-    }
+.site-main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+app-home {
+    display: flex;
+    flex-direction: column;
+    flex: 1
+}
+
+app-login {
+    align-self: center;
+    margin-top: 3em;
+}
+
+app-register {
+    align-self: center;
+    margin-top: 2em;
+}

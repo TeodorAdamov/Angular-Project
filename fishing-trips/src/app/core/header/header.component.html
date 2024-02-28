@@ -10,13 +10,20 @@
         </div>
         <nav class="site-nav">
             <ul>
-                <div class="user">
+                <div *ngIf="this.authService.currentUser" class="user">
                     <li><a>Trips</a></li>
                     <li><a (click)="logout()">Logout</a></li>
                 </div>
-                <div class="guest">
+                <div *ngIf="!this.authService.currentUser" class="guest">
                     <li><a routerLink="/login">Login</a></li>
                     <li><a routerLink="/register">Register</a></li>
+                </div>
+                <div class="welcome-message" *ngIf="this.authService.currentUser">
+                    <p>Welcome {{this.authService.currentUser.displayName}}</p>
+                    <div class="profile-image">
+                        <a [routerLink]="['/myprofile',this.authService.currentUser.uid]"><img
+                                src="{{this.authService.currentUser.photoURL}}" alt=""></a>
+                    </div>
                 </div>
             </ul>
         </nav>

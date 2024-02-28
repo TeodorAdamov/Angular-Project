@@ -3,6 +3,7 @@ import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
 import { HomeComponent } from './core/views/home/home.component';
 import { CreateTripComponent } from './core/views/create-trip/create-trip.component';
+import { MyProfileComponent } from './core/views/my-profile/my-profile.component';
 
 
 export const routes: Routes = [
@@ -23,4 +24,8 @@ export const routes: Routes = [
     {
         path: 'create',
         component: CreateTripComponent
+    },
+    {
+        path: 'myprofile/:id',
+        component: MyProfileComponent
     }];

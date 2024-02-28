@@ -1,13 +1,19 @@
 <form #registerForm="ngForm" (ngSubmit)="submitHandler(registerForm)">
     <div class="container">
-        <label for="email"><b>Email</b></label>
+        <label for="email"><b>Email *</b></label>
         <input ngModel type="text" placeholder="Enter Email" name="email" required>
 
-        <label for="password"><b>Password</b></label>
+        <label for="password"><b>Password *</b></label>
         <input ngModel type="password" placeholder="Enter Password" name="password" required>
 
-        <label for="password-repeat"><b>Password</b></label>
-        <input ngModel type="password" placeholder="Repeat Password" name="password-repeat" required>
+        <label for="passwordRepeat"><b>Password *</b></label>
+        <input ngModel type="password" placeholder="Repeat Password" name="passwordRepeat" required>
+
+        <label for="displayName"><b>Display Name *</b></label>
+        <input ngModel type="text" placeholder="Display Name" name="displayName" required>
+
+        <label for="photoURL"><b>Photo URL - optional</b></label>
+        <input ngModel type="text" placeholder="Your photo URL" name="photoURL">
 
         <div class="register-btn">
             <button type="submit">Register</button>
