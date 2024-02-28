@@ -46,3 +46,18 @@
         flex-direction: column;
     }
 }
+
+.register-info {
+    display: flex;
+   flex-direction: column;
+   gap: 2em;
+}
+
+.register {
+    font-size: 2em;
+    color: #299732;
+}
+
+.register:hover {
+    opacity: 0.8;
+}
