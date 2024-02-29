@@ -9,6 +9,7 @@ import { environment } from '../../environment';
 
 
 
+
 @Injectable({
     providedIn: 'root'
 })
@@ -32,13 +33,11 @@ export class AuthService implements OnDestroy {
         const currentUser = this.auth.currentUser;
         if (currentUser) {
             if (!photoURL) {
-                this.api.getItemFromFirebaseStorage(environment.firebaseStorage.defaultProfileImage).subscribe({
-                    next: (link) => {
-                        photoURL = link
-                    },
-                    complete: async () => {
-                        await updateProfile(currentUser, { displayName, photoURL })
-                    }
+                this.api.getItemFromFirebaseStorage(environment.firebaseStorage.defaultProfileImage).then((link) => {
+                    photoURL = link
+
+                }).then(() => {
+                    updateProfile(currentUser, { displayName, photoURL })
                 })
             } else {
                 await updateProfile(currentUser, { displayName, photoURL })

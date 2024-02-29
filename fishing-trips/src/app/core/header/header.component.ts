@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { environment } from '../../environment';
 import { AuthService } from '../auth/auth.service';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environment';
 
 @Component({
     selector: 'app-header',
@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.api.getItemFromFirebaseStorage(environment.firebaseStorage.siteLogo).subscribe(url => {
+        this.api.getItemFromFirebaseStorage(environment.firebaseStorage.siteLogo).then(url => {
             this.siteLogo = url;
         })
     }

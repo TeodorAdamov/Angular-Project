@@ -3,6 +3,8 @@ import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../../api.service';
 import { environment } from '../../../environment';
 
+
+
 @Component({
     selector: 'app-home',
     standalone: true,
@@ -18,7 +20,7 @@ export class HomeComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.api.getItemFromFirebaseStorage(environment.firebaseStorage.siteLogo).subscribe(url => {
+        this.api.getItemFromFirebaseStorage(environment.firebaseStorage.siteLogo).then(url => {
             this.siteLogo = url;
         })
     }

@@ -11,7 +11,7 @@
         <nav class="site-nav">
             <ul>
                 <div *ngIf="this.authService.currentUser" class="user">
-                    <li><a>Trips</a></li>
+                    <li><a routerLink="/trips">Trips</a></li>
                     <li><a (click)="logout()">Logout</a></li>
                 </div>
                 <div *ngIf="!this.authService.currentUser" class="guest">

@@ -5,5 +5,6 @@ export interface Trip {
     "lures-used": string,
     "fishing-shops": string,
     description: string,
-    imageUrl: string | undefined
+    imageUrl: string[] | undefined
+    userID: string | undefined
 }

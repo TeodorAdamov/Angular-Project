@@ -1,6 +1,9 @@
+
+
 <div class="container">
     <h2>Fishing Trip</h2>
-    <form #createForm="ngForm" (submit)="onSubmit(createForm)">
+    <app-loader *ngIf="this.isLoading"></app-loader>
+    <form *ngIf="!this.isLoading" #createForm="ngForm" (submit)="onSubmit(createForm)">
         <label for="destination">* Destination:</label>
         <input ngModel type="text" name="destination" required>
 
@@ -16,7 +19,7 @@
         <label for="fishing-shops">* Fishing Shops Nearby:</label>
         <input ngModel type="text" name="fishing-shops" required>
 
-        <label for="images[]">* Upload Image:</label>
+        <label for="images[]">* Upload Images- you can upload more than 1 image:</label>
         <input (change)="onFileSelected($event)" type="file" name="images[]" multiple accept="image/*" required>
 
         <label for="description">* Description:</label>

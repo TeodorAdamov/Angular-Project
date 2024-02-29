@@ -28,9 +28,9 @@ export class ApiService {
         return this.trips$;
     }
 
-    getItemFromFirebaseStorage(url: string): Observable<string> {
+    getItemFromFirebaseStorage(url: string): Promise<string> {
         const imageRef: StorageReference = ref(this.storage, url);
-        return from(getDownloadURL(imageRef))
+        return getDownloadURL(imageRef)
     }
 
     createTrip(trip: Trip) {

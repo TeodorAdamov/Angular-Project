@@ -1,43 +1,71 @@
 import { Injectable, inject } from '@angular/core';
 import { Storage, ref, uploadBytesResumable } from '@angular/fire/storage';
-import { environment } from '../../../environment';
 import { ApiService } from '../../../api.service';
 import { Trip } from '../../../../types/tripType';
 import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
+import { environment } from '../../../environment';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class CreateTripService {
-    imageUrl: string = '';
+    imageUrl: string[] = [];
+    imageBlobs: Blob[] = [];
+    imageLinks: string[] = [];
+    promiseArray: Promise<string>[] = [];
     private readonly storage: Storage = inject(Storage);
 
 
-    constructor(private api: ApiService, private authService: AuthService) { }
+    constructor(
+        private api: ApiService,
+        private authService: AuthService,
+        private router: Router) { }
 
-    uploadImageThenCreateTrip(myTrip: Trip) {
+    async uploadImageThenCreateTrip(myTrip: Trip, isLoading: boolean) {
 
         if (this.authService.currentUser) {
 
-            const imageName = 'images/' + new Date().getTime() + '.jpg'
-            const storageRef = ref(this.storage, imageName);
-            const imageBlob = this.dataURItoBlob(this.imageUrl);
+            //CONVERTING IMAGE URI TO IMAGE BLOBS
 
-            uploadBytesResumable(storageRef, imageBlob).then(() => {
-                this.api.getItemFromFirebaseStorage(environment.firebaseStorage.tripImage + imageName).subscribe({
-                    next: (link) => {
-                        myTrip.imageUrl = link;
-                        this.api.createTrip(myTrip)?.then((res) => {
-                            console.log(res);
-                        });
-                    },
-                    complete: () => {
+            for (let i = 0; i < this.imageUrl.length; i++) {
 
-                    }
+                const imageBlob = this.dataURItoBlob(this.imageUrl[i]);
+                this.imageBlobs.push(imageBlob)
+            }
+
+            //UPLOADING TO FIREBASE STORAGE THEN GETTING THE LINK FOR EVERY IMAGE AND PUSHING IN ARRAY
+            //COLLECTING ALL THE PROMISES IN AN ARRAY 
+
+            for (let blob of this.imageBlobs) {
+                const imageName = 'images/' + this.generateRandomString(20) + '.jpg'
+                const storageRef = ref(this.storage, imageName);
+
+
+                await uploadBytesResumable(storageRef, blob).then((res) => {
+                    console.log(res, 'upload complete');
+                    this.promiseArray.push(this.api.getItemFromFirebaseStorage(environment.firebaseStorage.tripImage + imageName))
                 })
+            }
+
+            //WHEN ALL PROMISES ARE RESOLVED CREATING MY POST AND REDIRECTING TO TRIPS PAGE
+
+            Promise.all(this.promiseArray).then((res) => {
+                this.imageLinks = res;
+            }).then(() => {
+                myTrip.imageUrl = this.imageLinks;
+                myTrip.userID = this.authService.currentUser?.uid
+                this.api.createTrip(myTrip)
+            }).finally(() => {
+                this.imageUrl = [];
+                this.imageBlobs = [];
+                this.imageLinks = [];
+                this.promiseArray = [];
+                isLoading = false;
+                this.router.navigate(['/trips']);
             })
         }
-
     }
 
     getBase64(file: File): Promise<string> {
@@ -60,5 +88,15 @@ export class CreateTripService {
         }
 
         return new Blob([intArray], { type: mimeString });
+    }
+
+    generateRandomString(length: number) {
+        const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            result += characters.charAt(randomIndex);
+        }
+        return result;
     }
 }
