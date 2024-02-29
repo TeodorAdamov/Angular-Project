@@ -11,12 +11,13 @@ import { provideHttpClient } from '@angular/common/http';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { environment } from './environment';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient(),
+  providers: [provideRouter(routes), provideHttpClient(), MatSnackBarModule,
   importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase))),
   importProvidersFrom(provideAuth(() => getAuth())),
   importProvidersFrom(provideFirestore(() => getFirestore())),
-  importProvidersFrom(provideStorage(() => getStorage())), provideAnimationsAsync(),
+  importProvidersFrom(provideStorage(() => getStorage())), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(),
   ]
 };

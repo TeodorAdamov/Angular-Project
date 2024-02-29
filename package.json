@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@angular/cli": "^17.2.1"
+    "@angular/cli": "^17.2.1",
+    "@angular/material-moment-adapter": "^17.2.1"
   }
 }

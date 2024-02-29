@@ -22,7 +22,6 @@ export class AuthService implements OnDestroy {
     constructor(private api: ApiService) {
         this.userSubscription = this.authState$.subscribe((aUser: User | null) => {
             if (aUser) {
-                console.log(aUser, 'aUser from authState');
                 this.currentUser = aUser;
             }
         })

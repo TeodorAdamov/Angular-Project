@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://use.fontawesome.com/releases/v6.5.1/css/all.css');
-
 /* RESET CSS  */
 /* You can add global styles to this file, and also import other style files */
 * {
@@ -121,6 +120,8 @@ a {
 
 
 /* SITE LAYOUT */
+
+
 .site-wrapper {
     min-height: 100vh;
 }
@@ -165,3 +166,8 @@ app-register {
     align-self: center;
     margin-top: 2em;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

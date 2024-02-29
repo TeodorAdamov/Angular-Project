@@ -1,0 +1,65 @@
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #d3e0dc;
+    border-radius: 10px;
+}
+
+h2 {
+    color: #266678;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #266678;
+}
+
+input[type="text"],
+input[type="file"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #266678;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #266678;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+.reset-btn {
+    margin-top: 10px;
+    box-sizing: border-box;
+    width: 20%;
+    color: white;
+    background-color: #f44336;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.reset-btn:hover {
+    opacity: 0.8;
+}
+
+input[type="text"].ng-valid,
+textarea.ng-valid {
+    border: 3px solid rgb(22, 210, 66);
+}

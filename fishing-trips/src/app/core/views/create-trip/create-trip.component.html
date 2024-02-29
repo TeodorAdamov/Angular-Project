@@ -1,1 +1,29 @@
-<p>create-trip works!</p>
+<div class="container">
+    <h2>Fishing Trip</h2>
+    <form #createForm="ngForm" (submit)="onSubmit(createForm)">
+        <label for="destination">* Destination:</label>
+        <input ngModel type="text" name="destination" required>
+
+        <label for="fishing-spots">* Fishing Spots:</label>
+        <input ngModel type="text" name="fishing-spots" required>
+
+        <label for="catches">* Catches:</label>
+        <input ngModel type="text" name="catches" required>
+
+        <label for="lures-used">* Lures Used:</label>
+        <input ngModel type="text" name="lures-used" required>
+
+        <label for="fishing-shops">* Fishing Shops Nearby:</label>
+        <input ngModel type="text" name="fishing-shops" required>
+
+        <label for="images[]">* Upload Image:</label>
+        <input (change)="onFileSelected($event)" type="file" name="images[]" multiple accept="image/*" required>
+
+        <label for="description">* Description:</label>
+        <textarea ngModel name="description" rows="4" required></textarea>
+
+        <input type="submit" value="Submit">
+        <button (click)="resetForm(createForm)" class="reset-btn">Reset</button>
+        <p>* fields required</p>
+    </form>
+</div>

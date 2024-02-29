@@ -10,5 +10,6 @@ export const environment = {
     firebaseStorage: {
         siteLogo: 'gs://softuni-angular-project-dev.appspot.com/I am looking fo 3bf91462-c234-426b-9325-92a9cde0f0ca.png',
         defaultProfileImage: 'gs://softuni-angular-project-dev.appspot.com/defaultProfileImage.png',
+        tripImage: 'gs://softuni-angular-project-dev.appspot.com/'
     }
 }
