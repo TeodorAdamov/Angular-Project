@@ -11,4 +11,9 @@ export class TripService {
     getRandomImageUrl(imageArr: string[]) {
         return imageArr[Math.floor(Math.random() * imageArr.length)]
     }
+
+
+    like(userId: string) {
+        
+    }
 }

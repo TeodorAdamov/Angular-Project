@@ -8,6 +8,7 @@ import { TripsService } from '../trips/trips.service';
 import { DocumentData } from '@angular/fire/firestore';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { TripService } from './trip.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
     selector: 'app-trip',
@@ -23,17 +24,22 @@ export class TripComponent implements OnInit {
     isLoading: boolean = true;
     randomImageUrl: string = '';
     isOwner: boolean = false;
+
+
     constructor(
         private api: ApiService,
         private route: ActivatedRoute,
         private tripsService: TripsService,
-        private tripService: TripService) { }
+        private tripService: TripService,
+        private authService: AuthService) { }
 
     ngOnInit(): void {
         this.tripId = this.route.snapshot.paramMap.get('id');
-        console.log(this.tripId);
+
+
 
         if (this.tripId) {
+
             this.api.getFirebaseDocumentById(this.tripId).subscribe((snapshot) => {
                 this.documentData = snapshot.data();
                 if (this.documentData) {
@@ -42,9 +48,16 @@ export class TripComponent implements OnInit {
                 if (this.trip.imageUrl) {
                     this.randomImageUrl = this.tripService.getRandomImageUrl(this.trip.imageUrl)
                 }
+                if (this.trip.userID === this.authService.currentUser?.uid) {
+                    this.isOwner = true;
+                }
                 this.isLoading = false;
             })
         }
+    }
+
+    onLike() {
+        
     }
 
 

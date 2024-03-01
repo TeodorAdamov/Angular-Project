@@ -36,12 +36,12 @@
                 </div>
                 <div class="buttons">
                     <div class="buttons-public">
-                        <a href=""><i class="fa-solid fa-thumbs-up fa-sm"></i> Like</a>
-                        <a href=""><i class="fa-solid fa-comments fa-sm"></i> Comment</a>
+                        <a class="like-btn"><i class="fa-solid fa-thumbs-up fa-sm"></i> Like</a>
+                        <a><i class="fa-solid fa-comments fa-sm"></i> Comment</a>
                     </div>
-                    <div class="buttons-owner">
-                        <a href=""><i class="fa-solid fa-pen-to-square fa-sm"></i> Edit</a>
-                        <a href=""><i class="fa-solid fa-trash fa-sm"></i> Delete</a>
+                    <div *ngIf="this.isOwner" class="buttons-owner">
+                        <a><i class="fa-solid fa-pen-to-square fa-sm"></i> Edit</a>
+                        <a><i class="fa-solid fa-trash fa-sm"></i> Delete</a>
                     </div>
                 </div>
 
