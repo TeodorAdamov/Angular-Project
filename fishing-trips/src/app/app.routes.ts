@@ -5,6 +5,7 @@ import { HomeComponent } from './core/views/home/home.component';
 import { CreateTripComponent } from './core/views/create-trip/create-trip.component';
 import { MyProfileComponent } from './core/views/my-profile/my-profile.component';
 import { TripsComponent } from './core/views/trips/trips.component';
+import { TripComponent } from './core/views/trip/trip.component';
 
 
 export const routes: Routes = [
@@ -33,4 +34,8 @@ export const routes: Routes = [
     {
         path: 'trips',
         component: TripsComponent
+    },
+    {
+        path: 'trips/:id',
+        component: TripComponent
     }];

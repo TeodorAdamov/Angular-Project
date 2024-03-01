@@ -1,0 +1,55 @@
+<div class="wrapper">
+    <div *ngIf="this.isLoading" class="loader-wrapper">
+        <app-loader></app-loader>
+    </div>
+    <div *ngIf="!this.isLoading" class="content-wrapper">
+        <div class="card-wrapper">
+            <div class="content">
+                <div class="content-title">
+                    <h1>{{this.trip.destination}}</h1>
+                </div>
+                <div class="trip-info">
+                    <div class="row">
+                        <div class="icon"><i class="fa-solid fa-fish fa-2x"></i></div>
+                        <span>{{this.trip.catches}}</span>
+                    </div>
+                    <div class="row">
+                        <div class="icon"><i class="fa-solid fa-location-dot fa-2x"></i></div>
+                        <span>{{this.trip['fishing-spots']}}</span>
+                    </div>
+                    <div class="row">
+                        <div class="icon"><i class="fa-solid fa-cookie-bite fa-2x"></i></div>
+                        <span>{{this.trip['lures-used']}}</span>
+                    </div>
+                    <div class="row">
+                        <div class="icon"><i class="fa-solid fa-cart-shopping fa-2x"></i></div>
+                        <span>{{this.trip['fishing-shops']}}</span>
+                    </div>
+                    <div class="row">
+                        <div class="icon"><i class="fa-solid fa-comment fa-2x"></i></div>
+                        <span>{{this.trip.description}}</span>
+                    </div>
+                    <div class="row">
+                        <div class="icon"><i class="fa-solid fa-image fa-2x"></i></div>
+                        <a><span class="gallery">Gallery</span></a><i class="fa-solid fa-arrow-left fa-2x"></i>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="buttons-public">
+                        <a href=""><i class="fa-solid fa-thumbs-up fa-sm"></i> Like</a>
+                        <a href=""><i class="fa-solid fa-comments fa-sm"></i> Comment</a>
+                    </div>
+                    <div class="buttons-owner">
+                        <a href=""><i class="fa-solid fa-pen-to-square fa-sm"></i> Edit</a>
+                        <a href=""><i class="fa-solid fa-trash fa-sm"></i> Delete</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="content-media">
+                <a><img src="{{this.randomImageUrl}}" alt=""></a>
+            </div>
+        </div>
+
+    </div>
+</div>
