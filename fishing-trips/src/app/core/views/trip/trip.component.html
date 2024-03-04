@@ -40,9 +40,11 @@
                 </div>
                 <div class="buttons">
                     <div class="buttons-public">
-                        <a *ngIf="hasLiked && !isOwner" [class.like-btn]="hasLiked" (click)="onLike()"><i class="fa-solid fa-thumbs-down fa-sm"></i>
+                        <a *ngIf="hasLiked && !isOwner" [class.like-btn]="hasLiked" (click)="onLike()"><i
+                                class="fa-solid fa-thumbs-down fa-sm"></i>
                             Dislike</a>
-                        <a *ngIf="!hasLiked && !isOwner" [class.like-btn]="hasLiked" (click)="onLike()"><i class="fa-solid fa-thumbs-up fa-sm"></i>
+                        <a *ngIf="!hasLiked && !isOwner" [class.like-btn]="hasLiked" (click)="onLike()"><i
+                                class="fa-solid fa-thumbs-up fa-sm"></i>
                             Like</a>
                         <a><i class="fa-solid fa-comments fa-sm"></i> Comment</a>
                     </div>

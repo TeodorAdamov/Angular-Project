@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../../api.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
     providedIn: 'root'
@@ -22,4 +23,6 @@ export class TripService {
     delete(userId: string) {
         this.api.deleteTrip(userId)
     }
+
+
 }

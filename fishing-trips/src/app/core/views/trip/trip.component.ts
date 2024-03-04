@@ -1,19 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from '../../../api.service';
-import { TripsComponent } from '../trips/trips.component';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Trip } from '../../../../types/tripType';
 import { DocumentData } from '@angular/fire/firestore';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { TripService } from './trip.service';
 import { AuthService } from '../../auth/auth.service';
 import { ConvertService } from '../../../shared/convert.service';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector: 'app-trip',
     standalone: true,
-    imports: [CommonModule, LoaderComponent],
+    imports: [CommonModule, LoaderComponent, ConfirmDialogComponent],
     templateUrl: './trip.component.html',
     styleUrl: './trip.component.css'
 })
@@ -30,6 +30,7 @@ export class TripComponent implements OnInit {
     constructor(
         private api: ApiService,
         private route: ActivatedRoute,
+        private router: Router,
         private convertService: ConvertService,
         private tripService: TripService,
         private authService: AuthService) { }
@@ -81,8 +82,13 @@ export class TripComponent implements OnInit {
 
     onDelete() {
         const tripID = this.tripId;
-        if(tripID) {
-            this.tripService.delete(tripID)
+        if (tripID) {
+            if (window.confirm('Are you sure you want to delete this trip ?')) {
+                this.tripService.delete(tripID)
+                this.router.navigate(['/trips'])
+            }
+
+
         }
     }
 
