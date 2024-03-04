@@ -35,7 +35,7 @@ export class RegisterComponent implements OnDestroy {
             return;
         }
         if (password.trim().length < 7) {
-            this.snackBar.openSnackBar('Password must be longer than 6 symbols', 5000)
+            this.snackBar.openSnackBar('Password must be longer than 6 symbols', 8000)
             form.reset();
             return;
         }

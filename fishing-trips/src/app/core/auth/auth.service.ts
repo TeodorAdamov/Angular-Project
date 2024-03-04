@@ -24,6 +24,7 @@ export class AuthService implements OnDestroy {
         this.userSubscription = this.authState$.subscribe((aUser: User | null) => {
             if (aUser) {
                 this.currentUser = aUser;
+                
             }
         })
     }

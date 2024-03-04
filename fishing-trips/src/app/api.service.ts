@@ -1,10 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 
-import { CollectionReference, DocumentData, DocumentSnapshot, Firestore, addDoc, collection, collectionData, doc, getDoc } from '@angular/fire/firestore';
+import { CollectionReference, DocumentData, DocumentSnapshot, Firestore, addDoc, collection, collectionData, deleteDoc, doc, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Storage, StorageReference, getDownloadURL, ref } from '@angular/fire/storage';
 import { Observable, from } from 'rxjs';
-import { UserCredential } from '@angular/fire/auth';
+import { UserCredential, user } from '@angular/fire/auth';
 import { Trip } from '../types/tripType';
+import { ConvertService } from './shared/convert.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,10 +19,10 @@ export class ApiService {
     userData!: UserCredential
     trip$!: Promise<DocumentSnapshot<DocumentData, DocumentData>>
 
-    constructor() {
+    constructor(private convertService: ConvertService) {
         const tripsCollectionRef = collection(this.firestore, 'trips');
         this.tripsCollectionRef = tripsCollectionRef
-        this.trips$ = collectionData(tripsCollectionRef, { idField: 'id' });
+        this.trips$ = collectionData(tripsCollectionRef);
     }
 
     getFirebaseDocumentById(id: string) {
@@ -43,6 +44,37 @@ export class ApiService {
         if (!trip) {
             return;
         }
-        return addDoc(this.tripsCollectionRef, trip);
+        addDoc(this.tripsCollectionRef, trip).then((res) => {
+            const docId = res.id;
+            const tripRef = doc(collection(this.firestore, 'trips'), docId);
+            updateDoc(tripRef, { id: docId })
+        })
+    }
+
+    addLikeToATrip(userId: string, tripId: string) {
+
+        this.getFirebaseDocumentById(tripId).subscribe((res) => {
+
+            if (res.exists()) {
+                const tripRef = doc(collection(this.firestore, 'trips'), tripId);
+                const tripDocumentData = res.data();
+                const trip = this.convertService.convertToTrip(tripDocumentData);
+
+                if (trip.likes.includes(userId)) {
+                    const index = trip.likes.indexOf(userId)
+                    trip.likes.splice(index, 1)
+                } else {
+                    trip.likes.push(userId);
+                }
+
+                setDoc(tripRef, trip);
+            }
+        })
+    }
+
+
+    deleteTrip(tripId: string) {
+        const tripRef = doc(collection(this.firestore, 'trips'), tripId);
+        deleteDoc(tripRef);
     }
 }

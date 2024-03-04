@@ -59,7 +59,7 @@ a:hover {
     margin-right: 1em;
     display: flex;
     gap: 1em;
-    align-content: center;
+    align-items: center;
 }
 
 .profile-image {
@@ -72,4 +72,9 @@ a:hover {
     object-fit: cover;
     border-radius: 50%;
     aspect-ratio: 1/1;
+}
+
+li {
+    display: flex;
+    align-items: center;
 }

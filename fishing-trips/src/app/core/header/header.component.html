@@ -11,10 +11,10 @@
         <nav class="site-nav">
             <ul>
                 <div *ngIf="this.authService.currentUser" class="user">
+                    <li><a routerLink="/trips">Trips</a></li>
                     <li><a (click)="logout()">Logout</a></li>
                 </div>
                 <div *ngIf="!this.authService.currentUser" class="guest">
-                    <li><a routerLink="/trips">Trips</a></li>
                     <li><a routerLink="/login">Login</a></li>
                     <li><a routerLink="/register">Register</a></li>
                 </div>

@@ -7,5 +7,14 @@ export interface Trip {
     description: string,
     imageUrl: string[] | undefined,
     userID: string | undefined,
-    id: string | undefined
+    id: string | undefined,
+    likes: string[],
+}
+
+
+
+
+interface comment {
+    comment: string,
+    userID: string,
 }

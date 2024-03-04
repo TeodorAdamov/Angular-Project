@@ -44,7 +44,6 @@ export class CreateTripService {
 
 
                 await uploadBytesResumable(storageRef, blob).then((res) => {
-                    console.log(res, 'upload complete');
                     this.promiseArray.push(this.api.getItemFromFirebaseStorage(environment.firebaseStorage.tripImage + imageName))
                 })
             }
@@ -56,6 +55,7 @@ export class CreateTripService {
             }).then(() => {
                 myTrip.imageUrl = this.imageLinks;
                 myTrip.userID = this.authService.currentUser?.uid
+                myTrip.likes = [];
                 this.api.createTrip(myTrip)
             }).finally(() => {
                 this.imageUrl = [];
