@@ -1,0 +1,17 @@
+.comment-input {
+    width: 100%;
+    max-width: 75em;
+}
+
+textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    resize: none;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    box-sizing: border-box;
+}
+
+textarea:focus {
+    outline: none;
+}

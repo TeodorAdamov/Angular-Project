@@ -10,11 +10,12 @@ import { AuthService } from '../../auth/auth.service';
 import { ConvertService } from '../../../shared/convert.service';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CommentsComponent } from '../comments/comments.component';
 
 @Component({
     selector: 'app-trip',
     standalone: true,
-    imports: [CommonModule, LoaderComponent, ConfirmDialogComponent, RouterLink],
+    imports: [CommonModule, LoaderComponent, ConfirmDialogComponent, RouterLink, CommentsComponent],
     templateUrl: './trip.component.html',
     styleUrl: './trip.component.css'
 })
@@ -27,6 +28,7 @@ export class TripComponent implements OnInit {
     isOwner: boolean = false;
     hasLiked: boolean = false;
     likesCount: number = 0;
+    isCommenting: boolean = false;
 
     constructor(
         private api: ApiService,
@@ -96,6 +98,10 @@ export class TripComponent implements OnInit {
 
 
         }
+    }
+
+    onComment() {
+        this.isCommenting = !this.isCommenting
     }
 
     openDialog(enterAnimationDuration: string, exitAnimationDuration: string) {
