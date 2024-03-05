@@ -9,12 +9,22 @@ export interface Trip {
     userID: string | undefined,
     id: string | undefined,
     likes: string[],
+    comments: comment[]
 }
 
 
 
 
 interface comment {
+    username: string
     comment: string,
+    userID: string,
+    replies: reply[]
+}
+
+
+interface reply {
+    username: string,
+    reply: string,
     userID: string,
 }

@@ -56,6 +56,7 @@ export class CreateTripService {
                 myTrip.imageUrl = this.imageLinks;
                 myTrip.userID = this.authService.currentUser?.uid
                 myTrip.likes = [];
+                myTrip.comments = [];
                 this.api.createTrip(myTrip)
             }).finally(() => {
                 this.imageUrl = [];

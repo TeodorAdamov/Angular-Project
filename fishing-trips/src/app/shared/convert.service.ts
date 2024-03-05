@@ -21,6 +21,7 @@ export class ConvertService {
       imageUrl: docData['imageUrl'],
       id: docData['id'],
       likes: docData['likes'],
+      comments: docData['comments']
     }
   }
 }
