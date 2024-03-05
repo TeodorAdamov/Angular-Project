@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-confirm-dialog',
@@ -11,15 +11,16 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 })
 export class ConfirmDialogComponent {
 
-    constructor(public dialog: MatDialog) {
+    constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>) {
 
     }
-    openDialog(enterAnimationDuration: string, exitAnimationDuration: string) {
-        return this.dialog.open(ConfirmDialogComponent, {
-            width: '250px',
-            enterAnimationDuration,
-            exitAnimationDuration,
-        });
+
+    onConfirm(): void {
+        this.dialogRef.close(true)
+    }
+
+    onCancel(): void {
+        this.dialogRef.close(false)
     }
 
 }

@@ -9,6 +9,7 @@ import { TripService } from './trip.service';
 import { AuthService } from '../../auth/auth.service';
 import { ConvertService } from '../../../shared/convert.service';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-trip',
@@ -33,7 +34,8 @@ export class TripComponent implements OnInit {
         private router: Router,
         private convertService: ConvertService,
         private tripService: TripService,
-        private authService: AuthService) { }
+        private authService: AuthService,
+        public dialog: MatDialog) { }
 
     ngOnInit(): void {
         this.tripId = this.route.snapshot.paramMap.get('id');
@@ -83,13 +85,25 @@ export class TripComponent implements OnInit {
     onDelete() {
         const tripID = this.tripId;
         if (tripID) {
-            if (window.confirm('Are you sure you want to delete this trip ?')) {
-                this.tripService.delete(tripID)
-                this.router.navigate(['/trips'])
-            }
+            this.openDialog('0ms', '0ms').afterClosed().subscribe(result => {
+                if (result) {
+                    this.tripService.delete(tripID)
+                    this.router.navigate(['/trips'])
+                }
+            })
+
+
 
 
         }
+    }
+
+    openDialog(enterAnimationDuration: string, exitAnimationDuration: string) {
+        return this.dialog.open(ConfirmDialogComponent, {
+            width: '250px',
+            enterAnimationDuration,
+            exitAnimationDuration,
+        });
     }
 
 }
