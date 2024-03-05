@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from '../../../api.service';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Trip } from '../../../../types/tripType';
 import { DocumentData } from '@angular/fire/firestore';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
@@ -14,7 +14,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 @Component({
     selector: 'app-trip',
     standalone: true,
-    imports: [CommonModule, LoaderComponent, ConfirmDialogComponent],
+    imports: [CommonModule, LoaderComponent, ConfirmDialogComponent, RouterLink],
     templateUrl: './trip.component.html',
     styleUrl: './trip.component.css'
 })

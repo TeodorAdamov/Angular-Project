@@ -1,7 +1,7 @@
 .wrapper {
     flex: 1;
-    background: rgb(106,146,248);
-    background: linear-gradient(0deg, rgba(106,146,248,1) 0%, rgba(106,177,248,1) 27%, rgba(115,191,230,1) 50%, rgba(95,192,213,1) 74%, rgba(137,148,138,1) 100%);
+    background: rgb(106, 146, 248);
+    background: linear-gradient(0deg, rgba(106, 146, 248, 1) 0%, rgba(106, 177, 248, 1) 27%, rgba(115, 191, 230, 1) 50%, rgba(95, 192, 213, 1) 74%, rgba(137, 148, 138, 1) 100%);
 }
 
 .loader-wrapper {
@@ -92,13 +92,19 @@
     color: white;
 }
 
-.buttons-public {
-
+.buttons button {
+    background-color: rgb(72, 72, 72);
+    border: none;
+    font-size: 1em;
+    padding: 0.8em 1.5em;
+    border-radius: 0.5em;
+    color: white;
+    cursor: pointer;
+    margin: 0.5em;
 }
 
-
-.buttons-owner {
-
+.buttons button:hover {
+    opacity: 0.8;
 }
 
 a:hover {
@@ -126,7 +132,20 @@ a:hover {
     color: rgb(35, 132, 229)
 }
 
-@media  (max-width: 1200px) {
+
+input {
+    border: 2px solid black;
+    padding: 0.1em;
+    border-radius: 0.3em;
+}
+
+textarea {
+    border: 2px solid black;
+    padding: 0.1em;
+    border-radius: 0.3em;
+}
+
+@media (max-width: 1200px) {
     .card-wrapper {
         display: flex;
         flex-direction: column-reverse;

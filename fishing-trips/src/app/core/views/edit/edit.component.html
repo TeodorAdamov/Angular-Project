@@ -1,0 +1,50 @@
+<div class="wrapper">
+    <div *ngIf="this.isLoading" class="loader-wrapper">
+        <app-loader></app-loader>
+    </div>
+    <div *ngIf="!this.isLoading" class="content-wrapper">
+        <div class="card-wrapper">
+            <div class="content">
+                <form id="editform" #editForm="ngForm" (submit)="onSubmit(editForm)">
+                    <div class="content-title">
+                        <h1>{{this.trip.destination}}</h1>
+                    </div>
+                    <div class="trip-info">
+                        <div class="row">
+                            <div class="icon"><i class="fa-solid fa-fish fa-2x"></i></div>
+                            <span><input [ngModel]="this.trip.catches" type="text" name="catches" required=""></span>
+                        </div>
+                        <div class="row">
+                            <div class="icon"><i class="fa-solid fa-location-dot fa-2x"></i></div>
+                            <span><input [ngModel]="this.trip['fishing-spots']" type="text" name="fishing-spots" required=""></span>
+                        </div>
+                        <div class="row">
+                            <div class="icon"><i class="fa-solid fa-cookie-bite fa-2x"></i></div>
+                            <span><input [ngModel]="this.trip['lures-used']" type="text" name="lures-used" required=""></span>
+                        </div>
+                        <div class="row">
+                            <div class="icon"><i class="fa-solid fa-cart-shopping fa-2x"></i></div>
+                            <span><input [ngModel]="this.trip['fishing-shops']" type="text" name="fishing-shops" required=""></span>
+                        </div>
+                        <div class="row">
+                            <div class="icon"><i class="fa-solid fa-comment fa-2x"></i></div>
+                            <span><textarea [ngModel]="this.trip.description" name="description" id="" cols="29" rows="5" required=""></textarea></span>
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <div class="buttons-owner">
+                            <button><i class="fa-solid fa-floppy-disk fa-sm"></i> Save</button>
+                            <a [routerLink]="['/trips', this.trip.id]"><i class="fa-solid fa-ban fa-sm"></i> Cancel</a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="content-media">
+                <a><img src="{{this.trip.imageUrl![0]}}" alt=""></a>
+            </div>
+        </div>
+
+    </div>
+</div>

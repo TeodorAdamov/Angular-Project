@@ -73,6 +73,13 @@ export class ApiService {
     }
 
 
+    editTrip(updatedTrip: Trip) {
+        const tripId = updatedTrip.id
+        const tripRef = doc(collection(this.firestore, 'trips'), tripId);
+        return setDoc(tripRef, updatedTrip);
+    }
+
+
     deleteTrip(tripId: string) {
         const tripRef = doc(collection(this.firestore, 'trips'), tripId);
         deleteDoc(tripRef);
