@@ -180,6 +180,12 @@ app-trip {
     flex: 1
 }
 
+app-edit {
+    display: flex;
+    flex-direction: column;
+    flex: 1
+}
+
 html,
 body {
     height: 100%;
