@@ -1,11 +1,24 @@
 import { Injectable, inject } from '@angular/core';
-
-import { CollectionReference, DocumentData, DocumentSnapshot, Firestore, addDoc, collection, collectionData, deleteDoc, doc, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
+import {
+    CollectionReference,
+    DocumentData,
+    DocumentSnapshot,
+    Firestore,
+    addDoc,
+    collection,
+    collectionData,
+    deleteDoc,
+    doc,
+    getDoc,
+    setDoc,
+    updateDoc
+} from '@angular/fire/firestore';
 import { Storage, StorageReference, getDownloadURL, ref } from '@angular/fire/storage';
 import { Observable, from } from 'rxjs';
-import { UserCredential, user } from '@angular/fire/auth';
+import { UserCredential } from '@angular/fire/auth';
 import { Trip } from '../types/tripType';
 import { ConvertService } from './shared/convert.service';
+import { comment } from '../types/comments';
 
 @Injectable({
     providedIn: 'root'
@@ -83,5 +96,14 @@ export class ApiService {
     deleteTrip(tripId: string) {
         const tripRef = doc(collection(this.firestore, 'trips'), tripId);
         deleteDoc(tripRef);
+    }
+
+    addComment(comment: comment, tripId: string,) {
+        const commentsCollectionRef = collection(this.firestore, `trips/${tripId}/comments`);
+        addDoc(commentsCollectionRef, comment).then((res) => {
+            const commentId = res.id;
+            const commentRef = doc(collection(this.firestore, `trips/${tripId}/comments`), commentId);
+            updateDoc(commentRef, { id: commentId })
+        })
     }
 }

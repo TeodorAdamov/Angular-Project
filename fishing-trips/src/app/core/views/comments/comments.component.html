@@ -1,3 +1,6 @@
 <div class="comment-input">
-    <textarea id="comment" name="comment" placeholder="Enter your comment here..." rows="5"></textarea>
+    <textarea (keydown)="onKeyDown($event,comment)" #comment name="comment" placeholder="Enter your comment here..." rows="5"></textarea>
+    <div class="send-com-btn">
+        <button (click)="onSend(comment)">Submit</button>
+    </div>
 </div>

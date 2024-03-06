@@ -46,7 +46,7 @@
                         <a *ngIf="!hasLiked && !isOwner" [class.like-btn]="hasLiked" (click)="onLike()"><i
                                 class="fa-solid fa-thumbs-up fa-sm"></i>
                             Like</a>
-                        <a (click)="onComment()" [class.commenting]="isCommenting"><i class="fa-solid fa-comments fa-sm"></i> Comment</a>
+                        <a (click)="onComment()" [class.commenting]="isCommenting"><i class="fa-solid fa-comments fa-sm"></i> Comments</a>
                     </div>
                     <div *ngIf="this.isOwner" class="buttons-owner">
                         <a [routerLink]="['/edit', this.trip.id]"><i class="fa-solid fa-pen-to-square fa-sm"></i> Edit</a>
@@ -60,6 +60,7 @@
             </div>
         </div>
         <div *ngIf="this.isCommenting" class="comments">
+
             <app-comments></app-comments>
         </div>
     </div>
