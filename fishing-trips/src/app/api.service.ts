@@ -18,7 +18,7 @@ import { Observable, from } from 'rxjs';
 import { UserCredential } from '@angular/fire/auth';
 import { Trip } from '../types/tripType';
 import { ConvertService } from './shared/convert.service';
-import { comment } from '../types/comments';
+import { comment, reply } from '../types/comments';
 
 @Injectable({
     providedIn: 'root'
@@ -105,5 +105,23 @@ export class ApiService {
             const commentRef = doc(collection(this.firestore, `trips/${tripId}/comments`), commentId);
             updateDoc(commentRef, { id: commentId })
         })
+    }
+
+    addReplyToComment(reply: reply, tripId: string, commentId: string) {
+        const commentRef = doc(collection(this.firestore, `/trips/${tripId}/comments`), commentId);
+        from(getDoc(commentRef)).subscribe((res) => {
+            const commentDocumentData = res.data();
+
+            if (commentDocumentData) {
+                const comment = this.convertService.convertToComment(commentDocumentData);
+                comment.replies.push(reply);
+                setDoc(commentRef, comment)
+            }
+        });
+    }
+
+    getCommentsForATrip(tripId: string) {
+        const commentsCollectionRef = collection(this.firestore, `trips/${tripId}/comments`);
+        return collectionData(commentsCollectionRef);
     }
 }

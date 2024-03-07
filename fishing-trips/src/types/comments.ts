@@ -1,13 +1,16 @@
 export interface comment {
-    username: string
     comment: string,
+    username: string
     userId: string,
-    id?: string 
+    userPhoto?: string | null,
+    id?: string,
     replies: reply[]
 }
 
-interface reply {
-    username: string,
+export interface reply {
     reply: string,
-    userID: string,
+    username: string,
+    userId: string,
+    userPhoto?: string | null,
+    id?: string,
 }

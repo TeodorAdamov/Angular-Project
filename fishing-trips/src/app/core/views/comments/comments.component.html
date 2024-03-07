@@ -1,6 +1,49 @@
-<div class="comment-input">
-    <textarea (keydown)="onKeyDown($event,comment)" #comment name="comment" placeholder="Enter your comment here..." rows="5"></textarea>
-    <div class="send-com-btn">
-        <button (click)="onSend(comment)">Submit</button>
+<app-loader *ngIf="this.loadingComments"></app-loader>
+<div *ngIf="!this.loadingComments" class="comment-input">
+    <div class="input-wrapper">
+        <textarea (keydown)="onKeyDown($event,comment)" #comment name="comment" placeholder="Enter your comment here..."
+            rows="3"></textarea>
+        <div class="send-com-btn">
+            <button (click)="onCommentSend(comment)"><i class="fa-solid fa-paper-plane fa-2x"></i></button>
+        </div>
     </div>
+
+    <div *ngFor="let comment of this.comments" class="comment-wrapper">
+        <div class="comment">
+            <div class="comment-info">
+                <div class="user-info">
+                    <div class="user-photo">
+                        <img src="{{comment.userPhoto}}" alt="">
+                    </div>
+                    <p class="comment-user">{{comment.username}}</p>
+                </div>
+                <div *ngIf="this.comment.userId == this.authService.currentUser?.uid" class="user-menu">
+                    <button class="button edit">Edit</button>
+                    <button class="button delete">Delete</button>
+                </div>
+            </div>
+            <p>{{comment.comment}}</p>
+            <div class="comment-input">
+                <textarea (keydown)="onKeyDown($event,commentReply)" #commentReply name="comment-reply"
+                    id="{{comment.id}}" placeholder="Enter your reply here" rows="3"></textarea>
+                <div class="comment-button">
+                    <button (click)="onReplySend(commentReply)" class="button reply"><i
+                            class="fa-solid fa-paper-plane fa-lg"></i></button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div *ngFor="let reply of comment.replies" class="comment-replies">
+            <div class="user-reply">
+                <div class="reply-photo">
+                    <img src="{{reply.userPhoto}}" alt="">
+                </div>
+                <p>{{reply.username}}</p>
+            </div>
+            <p class="reply">{{reply.reply}}</p>
+        </div>
+    </div>
+
 </div>
