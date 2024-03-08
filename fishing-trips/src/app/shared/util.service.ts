@@ -6,7 +6,7 @@ import { comment } from '../../types/comments';
 @Injectable({
     providedIn: 'root'
 })
-export class ConvertService {
+export class UtilService {
 
     constructor() { }
 
@@ -34,6 +34,16 @@ export class ConvertService {
             username: docData['username'],
             replies: docData['replies']
         }
+    }
+
+    generateRandomString(length: number) {
+        const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            result += characters.charAt(randomIndex);
+        }
+        return result;
     }
 
 }

@@ -6,7 +6,7 @@ import { Trip } from '../../../../types/tripType';
 import { DocumentData } from '@angular/fire/firestore';
 import { RouterLink } from '@angular/router';
 import { TripComponent } from '../trip/trip.component';
-import { ConvertService } from '../../../shared/convert.service';
+import { UtilService } from '../../../shared/util.service';
 
 @Component({
     selector: 'app-trips',
@@ -20,12 +20,12 @@ export class TripsComponent implements OnInit, OnDestroy {
     trips: Trip[] = []
     constructor(
         private api: ApiService,
-        private convertService: ConvertService) { }
+        private util: UtilService) { }
 
 
     ngOnInit(): void {
         this.tripsSubscription = this.api.getCollection().subscribe((trips: DocumentData[]) => {
-            this.trips = trips.map(trip => this.convertService.convertToTrip(trip))
+            this.trips = trips.map(trip => this.util.convertToTrip(trip))
         })
     }
 

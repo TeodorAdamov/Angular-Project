@@ -3,7 +3,7 @@ import { ApiService } from '../../../api.service';
 import { Trip } from '../../../../types/tripType';
 import { DocumentData } from '@angular/fire/firestore';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ConvertService } from '../../../shared/convert.service';
+import { UtilService } from '../../../shared/util.service';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -24,7 +24,7 @@ export class EditComponent {
     constructor(
         private api: ApiService,
         private route: ActivatedRoute,
-        private convertService: ConvertService,
+        private util: UtilService,
         private router: Router
     ) { }
 
@@ -39,7 +39,7 @@ export class EditComponent {
             this.api.getFirebaseDocumentById(this.tripId).subscribe((snapshot) => {
                 this.documentData = snapshot.data();
                 if (this.documentData) {
-                    this.trip = this.convertService.convertToTrip(this.documentData);
+                    this.trip = this.util.convertToTrip(this.documentData);
                 }
                 this.isLoading = false;
             })

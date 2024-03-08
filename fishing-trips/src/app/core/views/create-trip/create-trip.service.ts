@@ -5,6 +5,7 @@ import { Trip } from '../../../../types/tripType';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { environment } from '../../../environment';
+import { UtilService } from '../../../shared/util.service';
 
 
 @Injectable({
@@ -21,7 +22,8 @@ export class CreateTripService {
     constructor(
         private api: ApiService,
         private authService: AuthService,
-        private router: Router) { }
+        private router: Router,
+        private util: UtilService) { }
 
     async uploadImageThenCreateTrip(myTrip: Trip, isLoading: boolean) {
 
@@ -39,7 +41,7 @@ export class CreateTripService {
             //COLLECTING ALL THE PROMISES IN AN ARRAY 
 
             for (let blob of this.imageBlobs) {
-                const imageName = 'images/' + this.generateRandomString(20) + '.jpg'
+                const imageName = 'images/' + this.util.generateRandomString(20) + '.jpg'
                 const storageRef = ref(this.storage, imageName);
 
 
@@ -90,13 +92,5 @@ export class CreateTripService {
         return new Blob([intArray], { type: mimeString });
     }
 
-    generateRandomString(length: number) {
-        const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let result = '';
-        for (let i = 0; i < length; i++) {
-            const randomIndex = Math.floor(Math.random() * characters.length);
-            result += characters.charAt(randomIndex);
-        }
-        return result;
-    }
+
 }

@@ -17,12 +17,11 @@
                     </div>
                     <p class="comment-user">{{comment.username}}</p>
                 </div>
-                <div *ngIf="this.comment.userId == this.authService.currentUser?.uid" class="user-menu">
-                    <button class="button edit">Edit</button>
-                    <button class="button delete">Delete</button>
+                <div *ngIf="this.comment.userId == this.authService.currentUser?.uid">
+                    <app-dropdown [editAction]="onCommentEdit" [deleteCommentAction]="onDeleteCommentWrapper" [commentId]="comment.id"></app-dropdown>
                 </div>
             </div>
-            <p>{{comment.comment}}</p>
+            <p class="comment-text">{{comment.comment}}</p>
             <div class="comment-input">
                 <textarea (keydown)="onKeyDown($event,commentReply)" #commentReply name="comment-reply"
                     id="{{comment.id}}" placeholder="Enter your reply here" rows="3"></textarea>
@@ -36,11 +35,16 @@
 
 
         <div *ngFor="let reply of comment.replies" class="comment-replies">
-            <div class="user-reply">
-                <div class="reply-photo">
-                    <img src="{{reply.userPhoto}}" alt="">
+            <div class="user-reply-info-wrapper">
+                <div class="user-reply">
+                    <div class="reply-photo">
+                        <img src="{{reply.userPhoto}}" alt="">
+                    </div>
+                    <p>{{reply.username}}</p>
                 </div>
-                <p>{{reply.username}}</p>
+                <div *ngIf="this.reply.userId == this.authService.currentUser?.uid">
+                    <app-dropdown [editAction]="onReplyEdit" [deleteReplyAction]="onDeleteReplyWrapper" [replyId]="reply.id" [commentId]="comment.id"></app-dropdown>
+                </div>
             </div>
             <p class="reply">{{reply.reply}}</p>
         </div>

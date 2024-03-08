@@ -11,13 +11,13 @@ import {
     doc,
     getDoc,
     setDoc,
-    updateDoc
+    updateDoc,
 } from '@angular/fire/firestore';
 import { Storage, StorageReference, getDownloadURL, ref } from '@angular/fire/storage';
-import { Observable, from } from 'rxjs';
+import { Observable, from, take } from 'rxjs';
 import { UserCredential } from '@angular/fire/auth';
 import { Trip } from '../types/tripType';
-import { ConvertService } from './shared/convert.service';
+import { UtilService } from './shared/util.service';
 import { comment, reply } from '../types/comments';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class ApiService {
     userData!: UserCredential
     trip$!: Promise<DocumentSnapshot<DocumentData, DocumentData>>
 
-    constructor(private convertService: ConvertService) {
+    constructor(private util: UtilService) {
         const tripsCollectionRef = collection(this.firestore, 'trips');
         this.tripsCollectionRef = tripsCollectionRef
         this.trips$ = collectionData(tripsCollectionRef);
@@ -57,6 +57,7 @@ export class ApiService {
         if (!trip) {
             return;
         }
+
         addDoc(this.tripsCollectionRef, trip).then((res) => {
             const docId = res.id;
             const tripRef = doc(collection(this.firestore, 'trips'), docId);
@@ -71,7 +72,7 @@ export class ApiService {
             if (res.exists()) {
                 const tripRef = doc(collection(this.firestore, 'trips'), tripId);
                 const tripDocumentData = res.data();
-                const trip = this.convertService.convertToTrip(tripDocumentData);
+                const trip = this.util.convertToTrip(tripDocumentData);
 
                 if (trip.likes.includes(userId)) {
                     const index = trip.likes.indexOf(userId)
@@ -93,10 +94,24 @@ export class ApiService {
     }
 
 
-    deleteTrip(tripId: string) {
+    async deleteTrip(tripId: string) {
         const tripRef = doc(collection(this.firestore, 'trips'), tripId);
-        deleteDoc(tripRef);
+
+
+        const commentsQuery = collection(this.firestore, `trips/${tripId}/comments`);
+        const commentsCollection = collectionData(commentsQuery).pipe(take(1)).toPromise();
+        const commentsData = await commentsCollection;
+
+        if (commentsData) {
+            const comments = commentsData.map(this.util.convertToComment)
+            for (let comment of comments) {
+                const commentDocRef = doc(commentsQuery, comment.id)
+                await deleteDoc(commentDocRef)
+            }
+            deleteDoc(tripRef)
+        }
     }
+
 
     addComment(comment: comment, tripId: string,) {
         const commentsCollectionRef = collection(this.firestore, `trips/${tripId}/comments`);
@@ -107,21 +122,46 @@ export class ApiService {
         })
     }
 
+
+
     addReplyToComment(reply: reply, tripId: string, commentId: string) {
         const commentRef = doc(collection(this.firestore, `/trips/${tripId}/comments`), commentId);
         from(getDoc(commentRef)).subscribe((res) => {
             const commentDocumentData = res.data();
 
             if (commentDocumentData) {
-                const comment = this.convertService.convertToComment(commentDocumentData);
+                const comment = this.util.convertToComment(commentDocumentData);
                 comment.replies.push(reply);
                 setDoc(commentRef, comment)
             }
         });
     }
 
+
     getCommentsForATrip(tripId: string) {
         const commentsCollectionRef = collection(this.firestore, `trips/${tripId}/comments`);
         return collectionData(commentsCollectionRef);
+    }
+
+
+    deleteComment(commentId: string, tripId: string) {
+        const commentRef = doc(collection(this.firestore, `trips/${tripId}/comments`), commentId)
+        deleteDoc(commentRef);
+    }
+
+    deleteReply(replyId: string, commentId: string, tripId: string) {
+        const commentRef = doc(collection(this.firestore, `trips/${tripId}/comments`), commentId)
+        getDoc(commentRef).then((result) => {
+            const commentData = result.data();
+            if (commentData) {
+                const comment = this.util.convertToComment(commentData);
+                const replyRef = comment.replies.find((reply) => reply.id == replyId);
+                if (replyRef) {
+                    const index = comment.replies.indexOf(replyRef)
+                    comment.replies.splice(index, 1);
+                    setDoc(commentRef, comment)
+                }
+            }
+        })
     }
 }

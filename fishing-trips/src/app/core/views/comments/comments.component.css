@@ -60,6 +60,10 @@ textarea:focus {
     word-break: break-all;
 }
 
+.comment-text {
+    text-indent: 3.4em;
+}
+
 .comment-input {
     position: relative;
 }
@@ -126,6 +130,11 @@ textarea:focus {
     cursor: pointer;
 }
 
+.user-reply-info-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
 .user-reply {
     display: flex;
     align-items: center;
@@ -146,4 +155,5 @@ textarea:focus {
 
 .reply {
     word-break: break-all;
+    text-indent: 3.4em;
 }

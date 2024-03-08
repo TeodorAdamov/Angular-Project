@@ -7,7 +7,7 @@ import { DocumentData } from '@angular/fire/firestore';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { TripService } from './trip.service';
 import { AuthService } from '../../auth/auth.service';
-import { ConvertService } from '../../../shared/convert.service';
+import { UtilService } from '../../../shared/util.service';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CommentsComponent } from '../comments/comments.component';
@@ -34,7 +34,7 @@ export class TripComponent implements OnInit {
         private api: ApiService,
         private route: ActivatedRoute,
         private router: Router,
-        private convertService: ConvertService,
+        private util: UtilService,
         private tripService: TripService,
         private authService: AuthService,
         public dialog: MatDialog) { }
@@ -50,7 +50,7 @@ export class TripComponent implements OnInit {
             this.api.getFirebaseDocumentById(this.tripId).subscribe((snapshot) => {
                 this.documentData = snapshot.data();
                 if (this.documentData) {
-                    this.trip = this.convertService.convertToTrip(this.documentData);
+                    this.trip = this.util.convertToTrip(this.documentData);
                 }
                 if (this.trip.imageUrl) {
                     this.randomImageUrl = this.tripService.getRandomImageUrl(this.trip.imageUrl)
