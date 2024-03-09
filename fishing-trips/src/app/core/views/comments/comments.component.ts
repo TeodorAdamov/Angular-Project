@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { comment } from '../../../../types/comments';
 import { ApiService } from '../../../api.service';
@@ -24,13 +24,15 @@ export class CommentsComponent implements OnInit, OnDestroy {
     private routeSubscription: Subscription | undefined;
     comments?: comment[]
     loadingComments: boolean = true;
+    isEdittingComment: boolean = true;
 
     constructor(
         public authService: AuthService,
         private api: ApiService,
         private route: ActivatedRoute,
         private util: UtilService,
-        private commentService: CommentsService,) { }
+        private commentService: CommentsService,
+        private cdr: ChangeDetectorRef) { }
 
     ngOnInit(): void {
         this.routeSubscription = this.route.paramMap.subscribe(params => {
@@ -45,13 +47,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
             this.commentService.updateTripId(this.tripId);
             this.initComments();
 
+
         }
     }
 
     initComments(): void {
-        if (this.commentsSubscription) {
-            this.commentsSubscription.unsubscribe();
-        }
         this.loadingComments = true;
 
         this.commentsSubscription = this.api.getCommentsForATrip(this.tripId!).subscribe(comments => {
@@ -59,6 +59,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
             this.loadingComments = false;
         });
     }
+
+    // SEND COMMENTS AND REPLIES
 
     onCommentSend(textareaRef: HTMLTextAreaElement) {
         this.commentService.onCommentSend(textareaRef)
@@ -71,21 +73,36 @@ export class CommentsComponent implements OnInit, OnDestroy {
         this.commentService.onKeyDown(event, textareaRef)
     }
 
+    // EDIT COMMENTS AND REPLIES
 
+    onCommentEdit(): void {
+        this.isEdittingComment = !this.isEdittingComment
+        console.log(this.isEdittingComment);
+        
+    }
 
-    onCommentEdit() {
-        console.log('comment edit');
+    cancelEditting(event: KeyboardEvent, textareaRef: HTMLTextAreaElement) {
+
+        if (event.key == 'Escape') {
+            this.isEdittingComment = false;
+
+        }
+    }
+
+    onReplyEdit() {
+        console.log('reply edit');
+    }
+
+    onCommentEditSave(textareaRef: HTMLTextAreaElement) {
 
     }
+
+    // DELETE COMMENTS AND REPLIES
 
     onCommentDelete = (commentId: string, tripId: string) => this.api.deleteComment(commentId, tripId);
 
     onDeleteCommentWrapper = (commentId: string) => {
         this.onCommentDelete(commentId, this.tripId);
-    }
-
-    onReplyEdit() {
-        console.log('reply edit');
     }
 
     onReplyDelete = (replyId: string, commentId: string, tripId: string) => this.api.deleteReply(replyId, commentId, tripId);

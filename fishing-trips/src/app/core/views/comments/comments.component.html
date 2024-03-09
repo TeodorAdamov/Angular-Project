@@ -1,11 +1,19 @@
 <app-loader *ngIf="this.loadingComments"></app-loader>
 <div *ngIf="!this.loadingComments" class="comment-input">
-    <div class="input-wrapper">
+    <div *ngIf="!this.isEdittingComment" class="input-wrapper">
         <textarea (keydown)="onKeyDown($event,comment)" #comment name="comment" placeholder="Enter your comment here..."
             rows="3"></textarea>
         <div class="send-com-btn">
             <button (click)="onCommentSend(comment)"><i class="fa-solid fa-paper-plane fa-2x"></i></button>
         </div>
+    </div>
+
+    <div *ngIf="this.isEdittingComment" class="edit-comment-wrapper">
+        <textarea (keydown)="cancelEditting($event,editComment)" #editComment name="edit-comment" rows="3"></textarea>
+        <div class="send-com-btn">
+            <button (click)="onCommentEditSave(editComment)"><i class="fa-solid fa-paper-plane fa-2x"></i></button>
+        </div>
+        <p>Click esc to cancel editting</p>
     </div>
 
     <div *ngFor="let comment of this.comments" class="comment-wrapper">
@@ -18,8 +26,10 @@
                     <p class="comment-user">{{comment.username}}</p>
                 </div>
                 <div *ngIf="this.comment.userId == this.authService.currentUser?.uid">
-                    <app-dropdown [editAction]="onCommentEdit" [deleteCommentAction]="onDeleteCommentWrapper" [commentId]="comment.id"></app-dropdown>
+                    <app-dropdown [editAction]="onCommentEdit" [deleteCommentAction]="onDeleteCommentWrapper"
+                        [commentId]="comment.id"></app-dropdown>
                 </div>
+                <button (click)="onCommentEdit()">Edit</button>
             </div>
             <p class="comment-text">{{comment.comment}}</p>
             <div class="comment-input">
@@ -43,7 +53,8 @@
                     <p>{{reply.username}}</p>
                 </div>
                 <div *ngIf="this.reply.userId == this.authService.currentUser?.uid">
-                    <app-dropdown [editAction]="onReplyEdit" [deleteReplyAction]="onDeleteReplyWrapper" [replyId]="reply.id" [commentId]="comment.id"></app-dropdown>
+                    <app-dropdown [editAction]="onReplyEdit" [deleteReplyAction]="onDeleteReplyWrapper"
+                        [replyId]="reply.id" [commentId]="comment.id"></app-dropdown>
                 </div>
             </div>
             <p class="reply">{{reply.reply}}</p>

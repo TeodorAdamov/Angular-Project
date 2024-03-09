@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,15 +19,14 @@ export class DropdownComponent {
     @Input() deleteReplyAction!: (replyId: string, commentId: string) => void; // Method for delete action
     @Input() commentId: string | undefined;
     @Input() replyId: string | undefined;
-    constructor(private dialog: MatDialog) {
+    constructor(
+        private dialog: MatDialog,
+        private cdr: ChangeDetectorRef) { }
 
-    }
 
-
-
-    onEdit() {
-        this.editAction()
-    }
+        onEdit() {
+            this.editAction();
+        }
 
     onDelete() {
         this.openDialog('0ms', '0ms').afterClosed().subscribe(result => {
