@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { comment } from '../../../../types/comments';
 import { ApiService } from '../../../api.service';
@@ -24,7 +24,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
     private routeSubscription: Subscription | undefined;
     comments?: comment[]
     loadingComments: boolean = true;
-    isEdittingComment: boolean = true;
+    isEdittingComment: boolean = false;
+    commentToEdit?: comment
+    @ViewChild('editTextAreaRef') editTextAreaRef?: ElementRef
+
 
     constructor(
         public authService: AuthService,
@@ -75,17 +78,41 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
     // EDIT COMMENTS AND REPLIES
 
-    onCommentEdit(): void {
-        this.isEdittingComment = !this.isEdittingComment
-        console.log(this.isEdittingComment);
-        
+    onCommentEdit(comment: comment): void {
+        this.isEdittingComment = true;
+        this.commentToEdit = comment
+        setTimeout(() => {
+            const textAreaElement = this.editTextAreaRef?.nativeElement
+            textAreaElement.focus();
+            textAreaElement.setSelectionRange(textAreaElement.value.length, textAreaElement.value.length);
+
+        }, 10)
+    }
+
+    onCommentEditSave(textareaRef: HTMLTextAreaElement) {
+        if (!textareaRef.value) {
+            return
+        }
+
+        if (this.commentToEdit) {
+            this.commentToEdit.comment = textareaRef.value
+            const updatedComment = this.commentToEdit
+            this.api.updateComment(updatedComment, this.tripId);
+            textareaRef.value = '';
+            this.isEdittingComment = false;
+        }
     }
 
     cancelEditting(event: KeyboardEvent, textareaRef: HTMLTextAreaElement) {
 
         if (event.key == 'Escape') {
             this.isEdittingComment = false;
-
+            textareaRef.value = '';
+        }
+        if (event.key == 'Enter' && event.shiftKey == false) {
+            this.onCommentEditSave(textareaRef)
+            this.isEdittingComment = false;
+            textareaRef.value = '';
         }
     }
 
@@ -93,9 +120,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
         console.log('reply edit');
     }
 
-    onCommentEditSave(textareaRef: HTMLTextAreaElement) {
 
-    }
 
     // DELETE COMMENTS AND REPLIES
 

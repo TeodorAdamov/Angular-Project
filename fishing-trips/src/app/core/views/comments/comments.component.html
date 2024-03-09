@@ -9,8 +9,10 @@
     </div>
 
     <div *ngIf="this.isEdittingComment" class="edit-comment-wrapper">
-        <textarea (keydown)="cancelEditting($event,editComment)" #editComment name="edit-comment" rows="3"></textarea>
-        <div class="send-com-btn">
+        <h2>Edit Comment</h2>
+        <textarea #editTextAreaRef (keydown)="cancelEditting($event,editComment)" #editComment name="edit-comment"
+            rows="3">{{this.commentToEdit?.comment}}</textarea>
+        <div class="edit-save-btn">
             <button (click)="onCommentEditSave(editComment)"><i class="fa-solid fa-paper-plane fa-2x"></i></button>
         </div>
         <p>Click esc to cancel editting</p>
@@ -26,10 +28,9 @@
                     <p class="comment-user">{{comment.username}}</p>
                 </div>
                 <div *ngIf="this.comment.userId == this.authService.currentUser?.uid">
-                    <app-dropdown [editAction]="onCommentEdit" [deleteCommentAction]="onDeleteCommentWrapper"
-                        [commentId]="comment.id"></app-dropdown>
+                    <app-dropdown [editAction]="onCommentEdit.bind(this, comment)"
+                        [deleteCommentAction]="onDeleteCommentWrapper" [commentId]="comment.id"></app-dropdown>
                 </div>
-                <button (click)="onCommentEdit()">Edit</button>
             </div>
             <p class="comment-text">{{comment.comment}}</p>
             <div class="comment-input">

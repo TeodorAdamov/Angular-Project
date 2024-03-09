@@ -144,6 +144,16 @@ export class ApiService {
     }
 
 
+    //EDIT COMMENT AND COMMENT REPLY
+
+    updateComment(comment: comment, tripId: string) {
+        const commentId = comment.id
+        const docRef = doc(collection(this.firestore, `trips/${tripId}/comments`), commentId)
+        setDoc(docRef, comment)
+    }
+
+    //DELETE COMMENT AND REPLY
+
     deleteComment(commentId: string, tripId: string) {
         const commentRef = doc(collection(this.firestore, `trips/${tripId}/comments`), commentId)
         deleteDoc(commentRef);

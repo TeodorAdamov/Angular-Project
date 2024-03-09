@@ -48,6 +48,29 @@ textarea:focus {
     padding: 0;
 }
 
+.send-com-btn {
+    position: absolute;
+    bottom: 10%;
+    right: 1%;
+
+}
+
+.edit-comment-wrapper {
+    position: relative;
+}
+
+.edit-save-btn {
+    position: absolute;
+    bottom: 20%;
+    right: 1%;
+}
+
+.edit-save-btn button {
+    background-color: white;
+    color: rgb(72, 72, 72);
+    font-size: 0.7em;
+    padding: 0;
+}
 
 .comment {
     background-color: white;
