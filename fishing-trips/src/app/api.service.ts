@@ -19,7 +19,6 @@ import { UserCredential } from '@angular/fire/auth';
 import { Trip } from '../types/tripType';
 import { UtilService } from './shared/util.service';
 import { comment, reply } from '../types/comments';
-import { CommaExpr } from '@angular/compiler';
 
 @Injectable({
     providedIn: 'root'
@@ -167,19 +166,10 @@ export class ApiService {
                 if (replyRef) {
                     const index = comment.replies.indexOf(replyRef);
                     comment.replies.splice(index, 1, reply);
-                    console.log(comment);
-
-
                 }
                 setDoc(docRef, comment)
             }
-
         })
-
-        console.log(docRef);
-
-
-
     }
 
     //DELETE COMMENT AND REPLY

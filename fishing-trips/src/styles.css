@@ -180,6 +180,10 @@ app-edit {
     flex: 1
 }
 
+app-comments {
+    margin-bottom: 3em;
+}
+
 html,
 body {
     height: 100%;

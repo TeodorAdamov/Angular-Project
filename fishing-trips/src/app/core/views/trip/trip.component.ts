@@ -28,7 +28,7 @@ export class TripComponent implements OnInit {
     isOwner: boolean = false;
     hasLiked: boolean = false;
     likesCount: number = 0;
-    isCommenting: boolean = true;
+    isCommenting: boolean = false;
 
     constructor(
         private api: ApiService,
