@@ -1,5 +1,8 @@
 <app-loader *ngIf="this.loadingComments"></app-loader>
 <div *ngIf="!this.loadingComments" class="comment-input">
+
+    <!-- ADD COMMENTS TEXTAREA -->
+
     <div *ngIf="!this.isEdittingComment" class="input-wrapper">
         <textarea (keydown)="onKeyDown($event,comment)" #comment name="comment" placeholder="Enter your comment here..."
             rows="3"></textarea>
@@ -8,15 +11,20 @@
         </div>
     </div>
 
+    <!-- EDIT COMMENT TEXTAREA -->
+
     <div *ngIf="this.isEdittingComment" class="edit-comment-wrapper">
         <h2>Edit Comment</h2>
-        <textarea #editTextAreaRef (keydown)="cancelEditting($event,editComment)" #editComment name="edit-comment"
+        <textarea #editCommentTextAreaRef (keydown)="cancelEditting($event,editCommentTextAreaRef)" name="edit-comment"
             rows="3">{{this.commentToEdit?.comment}}</textarea>
         <div class="edit-save-btn">
-            <button (click)="onCommentEditSave(editComment)"><i class="fa-solid fa-paper-plane fa-2x"></i></button>
+            <button (click)="onCommentEditSave(editCommentTextAreaRef)"><i
+                    class="fa-solid fa-paper-plane fa-2x"></i></button>
         </div>
-        <p>Click esc to cancel editting</p>
+        <p>Click esc to <a (click)="onCancelClick()">cancel</a> editting</p>
     </div>
+
+    <!-- COMMENTS BEGIN HERE  -->
 
     <div *ngFor="let comment of this.comments" class="comment-wrapper">
         <div class="comment">
@@ -37,13 +45,13 @@
                 <textarea (keydown)="onKeyDown($event,commentReply)" #commentReply name="comment-reply"
                     id="{{comment.id}}" placeholder="Enter your reply here" rows="3"></textarea>
                 <div class="comment-button">
-                    <button (click)="onReplySend(commentReply)" class="button reply"><i
+                    <button (click)="onReplySend(commentReply)" class="button"><i
                             class="fa-solid fa-paper-plane fa-lg"></i></button>
                 </div>
             </div>
-
         </div>
 
+        <!-- REPLIES BEGIN HERE  -->
 
         <div *ngFor="let reply of comment.replies" class="comment-replies">
             <div class="user-reply-info-wrapper">
@@ -54,11 +62,23 @@
                     <p>{{reply.username}}</p>
                 </div>
                 <div *ngIf="this.reply.userId == this.authService.currentUser?.uid">
-                    <app-dropdown [editAction]="onReplyEdit" [deleteReplyAction]="onDeleteReplyWrapper"
+                    <app-dropdown [editAction]="onReplyEdit.bind(this,reply)" [deleteReplyAction]="onDeleteReplyWrapper"
                         [replyId]="reply.id" [commentId]="comment.id"></app-dropdown>
                 </div>
             </div>
             <p class="reply">{{reply.reply}}</p>
+
+            <!-- EDIT REPLY -->
+
+            <div *ngIf="reply.isEditting" class="comment-input">
+                <textarea #editReplyTextAreaRef (keydown)="cancelEditting($event,editReplyTextAreaRef, comment)"
+                    name="edit-reply" rows="3">{{this.replyToEdit?.reply}}</textarea>
+                <div class="comment-button">
+                    <button (click)="onReplyEditSave(editReplyTextAreaRef, comment)" class="button edit-reply-save"><i
+                            class="fa-solid fa-paper-plane fa-lg"></i></button>
+                </div>
+                <p>Click esc to <a (click)="onCancelClick()">cancel</a> editting</p>
+            </div>
         </div>
     </div>
 

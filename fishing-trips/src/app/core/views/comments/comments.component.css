@@ -28,6 +28,7 @@ textarea {
     padding: 0.5em;
     box-sizing: border-box;
     margin-top: 1em;
+    font-size: 1em;
 }
 
 textarea:focus {
@@ -59,6 +60,15 @@ textarea:focus {
     position: relative;
 }
 
+.edit-comment-wrapper p a {
+    color: black;
+    text-decoration: underline;
+}
+
+.edit-comment-wrapper p a:hover {
+    opacity: 0.8;
+}
+
 .edit-save-btn {
     position: absolute;
     bottom: 20%;
@@ -71,6 +81,8 @@ textarea:focus {
     font-size: 0.7em;
     padding: 0;
 }
+
+
 
 .comment {
     background-color: white;
@@ -179,4 +191,17 @@ textarea:focus {
 .reply {
     word-break: break-all;
     text-indent: 3.4em;
+}
+
+.comment-input .edit-reply-save {
+    bottom: 30%
+}
+
+.comment-input p a {
+    color: black;
+    text-decoration: underline;
+}
+
+.comment-input p a:hover {
+    opacity: 0.8;
 }

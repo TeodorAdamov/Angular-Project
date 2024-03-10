@@ -69,7 +69,8 @@ export class CommentsService {
             userId,
             userPhoto,
             reply: replyValue,
-            id: this.util.generateRandomString(20)
+            id: this.util.generateRandomString(20),
+            isEditting: false
         }
         this.tripId$.subscribe((tripId) => {
             if (tripId) {

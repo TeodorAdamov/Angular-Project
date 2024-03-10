@@ -13,4 +13,5 @@ export interface reply {
     userId: string,
     userPhoto?: string | null,
     id?: string,
+    isEditting: boolean
 }

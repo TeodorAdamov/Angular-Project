@@ -19,6 +19,7 @@ import { UserCredential } from '@angular/fire/auth';
 import { Trip } from '../types/tripType';
 import { UtilService } from './shared/util.service';
 import { comment, reply } from '../types/comments';
+import { CommaExpr } from '@angular/compiler';
 
 @Injectable({
     providedIn: 'root'
@@ -150,6 +151,35 @@ export class ApiService {
         const commentId = comment.id
         const docRef = doc(collection(this.firestore, `trips/${tripId}/comments`), commentId)
         setDoc(docRef, comment)
+    }
+
+    updateReply(reply: reply, commentObj: comment, tripId: string) {
+        const commentId = commentObj.id;
+        const docRef = doc(collection(this.firestore, `trips/${tripId}/comments`), commentId);
+
+        getDoc(docRef).then((result) => {
+            const commentData = result.data();
+
+            if (commentData) {
+                const comment = this.util.convertToComment(commentData);
+                const replyRef = comment.replies.find((rep) => rep.id == reply.id);
+
+                if (replyRef) {
+                    const index = comment.replies.indexOf(replyRef);
+                    comment.replies.splice(index, 1, reply);
+                    console.log(comment);
+
+
+                }
+                setDoc(docRef, comment)
+            }
+
+        })
+
+        console.log(docRef);
+
+
+
     }
 
     //DELETE COMMENT AND REPLY

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
-import { comment } from '../../../../types/comments';
+import { comment, reply } from '../../../../types/comments';
 import { ApiService } from '../../../api.service';
 import { ActivatedRoute } from '@angular/router';
 import { UtilService } from '../../../shared/util.service';
@@ -26,7 +26,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
     loadingComments: boolean = true;
     isEdittingComment: boolean = false;
     commentToEdit?: comment
-    @ViewChild('editTextAreaRef') editTextAreaRef?: ElementRef
+    replyToEdit?: reply
+    @ViewChild('editCommentTextAreaRef') editCommentTextAreaRef?: ElementRef
+    @ViewChild('editReplyTextAreaRef') editReplyTextAreaRef?: ElementRef
 
 
     constructor(
@@ -82,11 +84,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
         this.isEdittingComment = true;
         this.commentToEdit = comment
         setTimeout(() => {
-            const textAreaElement = this.editTextAreaRef?.nativeElement
+            const textAreaElement = this.editCommentTextAreaRef?.nativeElement
             textAreaElement.focus();
             textAreaElement.setSelectionRange(textAreaElement.value.length, textAreaElement.value.length);
 
-        }, 10)
+        }, 50)
     }
 
     onCommentEditSave(textareaRef: HTMLTextAreaElement) {
@@ -103,21 +105,69 @@ export class CommentsComponent implements OnInit, OnDestroy {
         }
     }
 
-    cancelEditting(event: KeyboardEvent, textareaRef: HTMLTextAreaElement) {
+    cancelEditting(event: KeyboardEvent, textareaRef: HTMLTextAreaElement, comment?:comment) {
 
-        if (event.key == 'Escape') {
-            this.isEdittingComment = false;
-            textareaRef.value = '';
+        if (textareaRef.name == 'edit-comment') {
+            if (event.key == 'Escape') {
+                this.isEdittingComment = false;
+                textareaRef.value = '';
+            }
+            if (event.key == 'Enter' && event.shiftKey == false) {
+                this.onCommentEditSave(textareaRef)
+                this.isEdittingComment = false;
+                textareaRef.value = '';
+            }
+        } else if (textareaRef.name == 'edit-reply' && comment) {
+            if (event.key == 'Escape') {
+                if (this.replyToEdit) {
+                    this.replyToEdit.isEditting = false;
+                }
+                textareaRef.value = '';
+            }
+
+            if (event.key == 'Enter' && event.shiftKey == false) {
+                this.onReplyEditSave(textareaRef, comment)
+                if (this.replyToEdit) {
+                    this.replyToEdit.isEditting = false;
+                }
+                textareaRef.value = '';
+            }
         }
-        if (event.key == 'Enter' && event.shiftKey == false) {
-            this.onCommentEditSave(textareaRef)
-            this.isEdittingComment = false;
-            textareaRef.value = '';
+
+
+    }
+
+    onCancelClick() {
+        this.isEdittingComment = false;
+        if (this.replyToEdit) {
+            this.replyToEdit.isEditting = false;
         }
     }
 
-    onReplyEdit() {
+    onReplyEdit(reply: reply) {
+        this.replyToEdit = reply;
+        this.replyToEdit.isEditting = true;
+        setTimeout(() => {
+            const textAreaElement = this.editReplyTextAreaRef?.nativeElement
+            textAreaElement.focus();
+            textAreaElement.setSelectionRange(textAreaElement.value.length, textAreaElement.value.length);
+
+        }, 50)
         console.log('reply edit');
+    }
+
+    onReplyEditSave(textareaRef: HTMLTextAreaElement, comment: comment) {
+        if (!textareaRef.value) {
+            return
+        }
+
+        if (this.replyToEdit) {
+            this.replyToEdit.reply = textareaRef.value
+            const updatedReply = this.replyToEdit
+            this.api.updateReply(updatedReply, comment, this.tripId);
+            textareaRef.value = '';
+            this.replyToEdit.isEditting = false;
+        }
     }
 
 
