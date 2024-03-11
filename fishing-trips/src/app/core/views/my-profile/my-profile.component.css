@@ -1,0 +1,104 @@
+.profile-container {
+    flex: 1;
+    background: rgb(106, 146, 248);
+    background: linear-gradient(0deg, rgba(106, 146, 248, 1) 0%, rgba(106, 177, 248, 1) 27%, rgba(115, 191, 230, 1) 50%, rgba(95, 192, 213, 1) 74%, rgba(137, 148, 138, 1) 100%);
+}
+
+.profile {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7em;
+    padding: 0 4em;
+}
+
+.user-photo {
+    position: relative;
+    margin-right: 20px;
+}
+
+.user-username {
+    font-size: 2em;
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3em;
+}
+
+.edit-photo {
+    display: flex;
+    flex-direction: column;
+}
+
+#save {
+    font-size: 2em;
+    background: none;
+    background-color: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 1em;
+}
+
+#save:hover {
+    opacity: 0.8;
+}
+
+.user-photo img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+#username {
+    margin-bottom: 1em;
+    border-radius: 0.5em;
+    border: none;
+}
+
+.user-details input[type="text"] {
+    width: 200px;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.trips {
+    margin-top: 20px;
+}
+
+.trip {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.trip h3 {
+    margin-top: 0;
+}
+
+
+@media (max-width: 700px) {
+
+    .user-photo {
+        margin: 0
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-details {
+        flex-direction: column;
+    }
+}

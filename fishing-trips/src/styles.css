@@ -180,12 +180,19 @@ app-edit {
     flex: 1
 }
 
+app-my-profile {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
 app-comments {
     margin-bottom: 3em;
 }
 
 app-gallery {
-    background-color: #eee;
+    background: rgb(106,146,248);
+    background: linear-gradient(0deg, rgba(106,146,248,1) 0%, rgba(106,177,248,1) 27%, rgba(115,191,230,1) 50%, rgba(95,192,213,1) 74%, rgba(137,148,138,1) 100%);
     padding: 2em;
     display: flex;
     flex-direction: column;

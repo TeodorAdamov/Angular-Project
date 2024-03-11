@@ -1,1 +1,35 @@
-<p>my-profile works!</p>
+<div class="profile-container">
+    <div class="profile">
+        <div class="user-info">
+            <div class="user-photo">
+                <img id="user-photo" src="{{this.authService.currentUser?.photoURL}}" alt="User Photo">
+                <p class="user-username">{{this.authService.currentUser?.displayName}}</p>
+            </div>
+            <div class="user-details">
+                <div>
+                    <div class="edit-user">
+                        <input type="text" id="username" placeholder="Enter new name here">
+                        <div class="edit-photo">
+                            <label for="upload-image">New profile image</label>
+                            <input type="file" id="upload-image" accept="image/*">
+                        </div>
+                    </div>
+                    <button id="save">Save</button>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="trips">
+            <h2>Trips</h2>
+            <!-- Posts will be dynamically added here -->
+            <div class="trip">
+                <h3>Post Title</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus auctor est vitae ligula fermentum,
+                    eu
+                    posuere ipsum vehicula.</p>
+            </div>
+            <!-- More posts can be added here -->
+        </div>
+    </div>
+</div>
