@@ -186,7 +186,6 @@ app-comments {
 
 app-gallery {
     background-color: #eee;
-    height: 100vh;
     padding: 2em;
     display: flex;
     flex-direction: column;
