@@ -184,6 +184,17 @@ app-comments {
     margin-bottom: 3em;
 }
 
+app-gallery {
+    background-color: #eee;
+    height: 100vh;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
 html,
 body {
     height: 100%;

@@ -7,6 +7,7 @@ import { MyProfileComponent } from './core/views/my-profile/my-profile.component
 import { TripsComponent } from './core/views/trips/trips.component';
 import { TripComponent } from './core/views/trip/trip.component';
 import { EditComponent } from './core/views/edit/edit.component';
+import { GalleryComponent } from './core/views/gallery/gallery.component';
 
 
 export const routes: Routes = [
@@ -43,4 +44,8 @@ export const routes: Routes = [
     {
         path: 'edit/:id',
         component: EditComponent
+    },
+    {
+        path: 'trips/:id/gallery',
+        component: GalleryComponent
     }];

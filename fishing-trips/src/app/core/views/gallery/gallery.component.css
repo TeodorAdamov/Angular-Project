@@ -1,0 +1,36 @@
+
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.gallery-container {
+    display: flex;
+    gap: 2em;
+}
+
+.card {
+    width: 100px;
+    height: 700px;
+    overflow: hidden;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.5);
+    border-radius: 0.3em;
+    position: relative;
+    transition: 0.3s ease-in;
+}
+
+.card:hover {
+    width: 800px
+
+}
+
+.card img {
+    width: auto;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
