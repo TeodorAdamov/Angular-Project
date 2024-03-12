@@ -33,7 +33,7 @@ export class CreateTripService {
 
             for (let i = 0; i < this.imageUrl.length; i++) {
 
-                const imageBlob = this.dataURItoBlob(this.imageUrl[i]);
+                const imageBlob = this.util.dataURItoBlob(this.imageUrl[i]);
                 this.imageBlobs.push(imageBlob)
             }
 
@@ -70,27 +70,7 @@ export class CreateTripService {
         }
     }
 
-    getBase64(file: File): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = error => reject(error);
-        });
-    }
 
-    dataURItoBlob(dataURI: string): Blob {
-        const byteString = atob(dataURI.split(',')[1]);
-        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-        const arrayBuffer = new ArrayBuffer(byteString.length);
-        const intArray = new Uint8Array(arrayBuffer);
-
-        for (let i = 0; i < byteString.length; i++) {
-            intArray[i] = byteString.charCodeAt(i);
-        }
-
-        return new Blob([intArray], { type: mimeString });
-    }
 
 
 }

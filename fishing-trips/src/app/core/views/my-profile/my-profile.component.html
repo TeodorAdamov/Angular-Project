@@ -8,13 +8,13 @@
             <div class="user-details">
                 <div>
                     <div class="edit-user">
-                        <input type="text" id="username" placeholder="Enter new name here">
+                        <input #username type="text" id="username" placeholder="Enter new name here">
                         <div class="edit-photo">
                             <label for="upload-image">New profile image</label>
-                            <input type="file" id="upload-image" accept="image/*">
+                            <input #photoInput (change)="onFileSelected($event)" type="file" id="upload-image" accept="image/*">
                         </div>
                     </div>
-                    <button id="save">Save</button>
+                    <button (click)="onSaveUserProfile(username, photoInput)" id="save">Save</button>
                 </div>
 
             </div>
@@ -22,14 +22,17 @@
         </div>
         <div class="trips">
             <h2>Trips</h2>
-            <!-- Posts will be dynamically added here -->
-            <div class="trip">
-                <h3>Post Title</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus auctor est vitae ligula fermentum,
-                    eu
-                    posuere ipsum vehicula.</p>
+            <div *ngIf="userTrips.length == 0">
+                <p class="first-trip">Create your first trip <a routerLink="/create">here</a></p>
             </div>
-            <!-- More posts can be added here -->
+            <div *ngIf="userTrips.length > 0">
+                <div *ngFor="let trip of userTrips" class="trip">
+                    <a [routerLink]="['/trips', trip.id]">
+                        <h3>{{trip.destination}}</h3>
+                    </a>
+                    <p>{{trip.description}}</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

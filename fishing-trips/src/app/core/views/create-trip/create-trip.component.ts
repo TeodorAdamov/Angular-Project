@@ -5,6 +5,7 @@ import { CreateTripService } from './create-trip.service';
 import { Trip } from '../../../../types/tripType';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { CommonModule } from '@angular/common';
+import { UtilService } from '../../../shared/util.service';
 
 
 @Component({
@@ -17,7 +18,9 @@ import { CommonModule } from '@angular/common';
 export class CreateTripComponent {
     isLoading: boolean = false;
 
-    constructor(private tripService: CreateTripService) { }
+    constructor(
+        private tripService: CreateTripService,
+        private util: UtilService) { }
 
     onSubmit(form: NgForm): void {
         const myTrip: Trip = form.value
@@ -42,7 +45,7 @@ export class CreateTripComponent {
         const files: FileList = event.target.files;
         if (files) {
             for (let i = 0; i < files.length; i++) {
-                this.tripService.getBase64(files[i]).then((data: string) => {
+                this.util.getBase64(files[i]).then((data: string) => {
                     this.tripService.imageUrl.push(data)
                 });
             }
