@@ -20,8 +20,7 @@ export class DropdownComponent {
     @Input() commentId: string | undefined;
     @Input() replyId: string | undefined;
     constructor(
-        private dialog: MatDialog,
-        private cdr: ChangeDetectorRef) { }
+        private dialog: MatDialog,) { }
 
 
         onEdit() {
