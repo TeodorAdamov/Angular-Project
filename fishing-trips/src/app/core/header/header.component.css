@@ -88,6 +88,10 @@ li {
         
     }
 
+    .site-nav a {
+        font-size: 1.3em;
+    }
+
     .user {
         flex-direction: column;
         gap: 0;
@@ -101,6 +105,6 @@ li {
     }
 
     .site-create p {
-        font-size: 1em;
+        font-size: 1.8em;
     }
 }
