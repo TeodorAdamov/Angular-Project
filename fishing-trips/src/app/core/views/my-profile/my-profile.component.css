@@ -133,4 +133,24 @@
     .user-details {
         flex-direction: column;
     }
+
+    .edit-user {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #username {
+        margin: 0 0 1em 0 
+    }
+
+    .edit-photo {
+        align-items: center;
+    }
+
+    .user-details div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }

@@ -1,5 +1,6 @@
 <div class="header-section">
     <header class="site-header">
+
         <div class="site-logo">
             <a routerLink="/home"><img src="{{siteLogo}}" alt=""></a>
         </div>
@@ -15,6 +16,7 @@
                     <li><a (click)="logout()">Logout</a></li>
                 </div>
                 <div *ngIf="!this.authService.currentUser" class="guest">
+                    <li><a routerLink="/trips">Trips</a></li>
                     <li><a routerLink="/login">Login</a></li>
                     <li><a routerLink="/register">Register</a></li>
                 </div>
@@ -27,5 +29,8 @@
                 </div>
             </ul>
         </nav>
+
+
     </header>
 </div>
+

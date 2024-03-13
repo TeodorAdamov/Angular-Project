@@ -15,6 +15,7 @@ a {
     color: #E4D9C2;
     background-color: #89948A;
 }
+
 a:hover {
     opacity: 0.5;
 }
@@ -77,4 +78,29 @@ a:hover {
 li {
     display: flex;
     align-items: center;
+}
+
+@media (max-width: 800px) {
+    .site-nav ul {
+        display: flex;
+        margin: 0;
+        flex-direction: column-reverse;
+        
+    }
+
+    .user {
+        flex-direction: column;
+        gap: 0;
+        align-items: center;
+        margin: 0;
+    }
+
+    .welcome-message {
+        flex-direction: column;
+        margin: 0 
+    }
+
+    .site-create p {
+        font-size: 1em;
+    }
 }
