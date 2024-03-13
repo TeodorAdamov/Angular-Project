@@ -39,8 +39,6 @@ export class GalleryComponent implements OnInit, OnDestroy {
                     this.trip = this.util.convertToTrip(documentData);
                     if (this.trip.imageUrl) {
                         this.tripGallery = this.trip.imageUrl
-                        console.log(this.trip.imageUrl);
-
                     }
                 }
             });

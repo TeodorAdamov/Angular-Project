@@ -8,6 +8,8 @@ import { TripsComponent } from './core/views/trips/trips.component';
 import { TripComponent } from './core/views/trip/trip.component';
 import { EditComponent } from './core/views/edit/edit.component';
 import { GalleryComponent } from './core/views/gallery/gallery.component';
+import { AuthGuard } from './Guard/auth.guard';
+
 
 
 export const routes: Routes = [
@@ -16,7 +18,7 @@ export const routes: Routes = [
     },
     {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
     },
     {
         path: 'login',
@@ -27,11 +29,13 @@ export const routes: Routes = [
     },
     {
         path: 'create',
-        component: CreateTripComponent
+        component: CreateTripComponent,
+        canActivate: [AuthGuard],
     },
     {
         path: 'myprofile/:id',
-        component: MyProfileComponent
+        component: MyProfileComponent,
+        canActivate: [AuthGuard],
     },
     {
         path: 'trips',
@@ -39,13 +43,16 @@ export const routes: Routes = [
     },
     {
         path: 'trips/:id',
-        component: TripComponent
+        component: TripComponent,
+        canActivate: [AuthGuard],
     },
     {
         path: 'edit/:id',
-        component: EditComponent
+        component: EditComponent,
+        canActivate: [AuthGuard],
     },
     {
         path: 'trips/:id/gallery',
-        component: GalleryComponent
+        component: GalleryComponent,
+        canActivate: [AuthGuard],
     }];

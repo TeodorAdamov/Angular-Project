@@ -76,8 +76,11 @@ export class MyProfileComponent implements OnInit {
 
     onFileSelected(event: Event): void {
         if (!(event.target instanceof HTMLInputElement)) return;
-
         if (event.target.files) {
+            if (event.target.files[0].type !== 'image/jpeg' &&
+                event.target.files[0].type !== 'image/png') {
+                return
+            }
             const file = event.target.files[0];
             this.util.getBase64(file).then((data: string) => {
                 this.imageBase64 = data;

@@ -64,7 +64,7 @@
         </div>
         <div *ngIf="this.isCommenting" class="comments">
 
-            <app-comments></app-comments>
+            <app-comments [isOwner]="isOwner"></app-comments>
         </div>
     </div>
 </div>

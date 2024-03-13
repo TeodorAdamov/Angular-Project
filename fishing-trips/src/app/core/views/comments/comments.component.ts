@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { comment, reply } from '../../../../types/comments';
 import { ApiService } from '../../../api.service';
@@ -19,7 +19,7 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
     styleUrl: './comments.component.css'
 })
 export class CommentsComponent implements OnInit, OnDestroy {
-    private tripId: string = '';
+    public tripId: string = '';
     private commentsSubscription!: Subscription
     private routeSubscription: Subscription | undefined;
     comments?: comment[]
@@ -27,6 +27,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     isEdittingComment: boolean = false;
     commentToEdit?: comment
     replyToEdit?: reply
+    @Input() 'isOwner': boolean
     @ViewChild('editCommentTextAreaRef') editCommentTextAreaRef?: ElementRef
     @ViewChild('editReplyTextAreaRef') editReplyTextAreaRef?: ElementRef
 
@@ -36,8 +37,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
         private api: ApiService,
         private route: ActivatedRoute,
         private util: UtilService,
-        private commentService: CommentsService,
-        private cdr: ChangeDetectorRef) { }
+        private commentService: CommentsService,) { }
 
     ngOnInit(): void {
         this.routeSubscription = this.route.paramMap.subscribe(params => {
@@ -51,8 +51,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
         if (this.tripId) {
             this.commentService.updateTripId(this.tripId);
             this.initComments();
-
-
         }
     }
 
@@ -105,7 +103,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
         }
     }
 
-    cancelEditting(event: KeyboardEvent, textareaRef: HTMLTextAreaElement, comment?:comment) {
+    cancelEditting(event: KeyboardEvent, textareaRef: HTMLTextAreaElement, comment?: comment) {
 
         if (textareaRef.name == 'edit-comment') {
             if (event.key == 'Escape') {

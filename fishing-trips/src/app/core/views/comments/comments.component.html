@@ -35,7 +35,7 @@
                     </div>
                     <p class="comment-user">{{comment.username}}</p>
                 </div>
-                <div *ngIf="this.comment.userId == this.authService.currentUser?.uid">
+                <div *ngIf="this.comment.userId == this.authService.currentUser?.uid || isOwner">
                     <app-dropdown [editAction]="onCommentEdit.bind(this, comment)"
                         [deleteCommentAction]="onDeleteCommentWrapper" [commentId]="comment.id"></app-dropdown>
                 </div>
@@ -61,7 +61,7 @@
                     </div>
                     <p>{{reply.username}}</p>
                 </div>
-                <div *ngIf="this.reply.userId == this.authService.currentUser?.uid">
+                <div *ngIf="this.reply.userId == this.authService.currentUser?.uid || isOwner">
                     <app-dropdown [editAction]="onReplyEdit.bind(this,reply)" [deleteReplyAction]="onDeleteReplyWrapper"
                         [replyId]="reply.id" [commentId]="comment.id"></app-dropdown>
                 </div>
