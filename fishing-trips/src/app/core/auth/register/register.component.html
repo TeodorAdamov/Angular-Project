@@ -3,14 +3,41 @@
         <label for="email"><b>Email *</b></label>
         <input ngModel type="text" placeholder="Enter Email" name="email" required>
 
-        <label for="password"><b>Password *</b></label>
-        <input ngModel type="password" placeholder="Enter Password" name="password" required>
+        <div class="error" *ngIf="emailAlreadyInUse">
+            This email is already in use
+        </div>
 
-        <label for="passwordRepeat"><b>Password *</b></label>
-        <input ngModel type="password" placeholder="Repeat Password" name="passwordRepeat" required>
+        <label for="password"><b>Password *</b></label>
+        <input #pass="ngModel" ngModel type="password" placeholder="Enter Password" name="password" required
+            minlength="6">
+        <ng-container *ngIf="pass.touched">
+            <div class="error" *ngIf="pass.errors?.['minlength']">
+                Pass must be longer than 5 symbols
+            </div>
+        </ng-container>
+
+        <label for="passwordRepeat"><b>Repeat Password *</b></label>
+        <input #repass="ngModel" ngModel type="password" placeholder="Repeat Password" name="passwordRepeat" required
+            minlength="6" [appPassMatch]="pass.value">
+
+        <ng-container *ngIf="repass.touched">
+            <div class="error" *ngIf="repass.errors?.['minlength']">
+                Pass must be longer than 5 symbols
+            </div>
+            <div class="error" *ngIf="repass.errors?.['appPassMatch']">
+                Passwords must match!
+            </div>
+        </ng-container>
+
 
         <label for="displayName"><b>Display Name *</b></label>
-        <input ngModel type="text" placeholder="Display Name" name="displayName" required>
+        <input #displayName="ngModel" ngModel type="text" placeholder="Display Name" name="displayName" required>
+
+        <ng-container *ngIf="displayName.touched">
+            <div class="error" *ngIf="displayName.errors?.['required']">
+                Display name is required!
+            </div>
+        </ng-container>
 
         <label for="photoURL"><b>Photo URL - optional</b></label>
         <input ngModel type="text" placeholder="Your photo URL" name="photoURL">

@@ -23,6 +23,10 @@
         <label for="description">* Description:</label>
         <textarea ngModel name="description" rows="4" required></textarea>
 
+        <div class="error" *ngIf="fieldError">
+            All fields required
+        </div>
+
         <input type="submit" value="Submit">
         <button (click)="resetForm(createForm)" class="reset-btn">Reset</button>
         <p>* fields required</p>

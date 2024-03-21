@@ -11,12 +11,13 @@ import { UtilService } from '../../../shared/util.service';
 @Component({
     selector: 'app-create-trip',
     standalone: true,
-    imports: [CommonModule,FormsModule, MatFormFieldModule, LoaderComponent],
+    imports: [CommonModule, FormsModule, MatFormFieldModule, LoaderComponent],
     templateUrl: './create-trip.component.html',
     styleUrl: './create-trip.component.css'
 })
 export class CreateTripComponent {
     isLoading: boolean = false;
+    fieldError: boolean = false;
 
     constructor(
         private tripService: CreateTripService,
@@ -25,15 +26,20 @@ export class CreateTripComponent {
     onSubmit(form: NgForm): void {
         const myTrip: Trip = form.value
 
-        if (!this.tripService.imageUrl
-            || !myTrip.catches
-            || !myTrip.description
-            || !myTrip.destination
-            || !myTrip['fishing-shops']
-            || !myTrip['lures-used']
-            || !myTrip['fishing-spots']) {
-            return;
+        if (this.tripService.imageUrl.length == 0 || form.invalid) {
+            this.fieldError = true;
+            return
         }
+
+        // if (!this.tripService.imageUrl
+        //     || !myTrip.catches
+        //     || !myTrip.description
+        //     || !myTrip.destination
+        //     || !myTrip['fishing-shops']
+        //     || !myTrip['lures-used']
+        //     || !myTrip['fishing-spots']) {
+        //     return;
+        // }
         this.isLoading = true;
         this.tripService.uploadImageThenCreateTrip(myTrip, this.isLoading)
     }

@@ -103,10 +103,6 @@ a:hover {
     opacity: 0.8;
 }
 
-.gallery {
-    font-size: 4em;
-}
-
 .trip-info div:last-child span {
     color: rgb(0, 0, 0);
 }
@@ -114,15 +110,13 @@ a:hover {
 .trip-info div:last-child a {
     margin: 0;
     background-color: white;
-}
 
-.gallery i {
-    margin-left: 1em;
 }
 
 .trip-info div:last-child span {
-    text-decoration: underline;
+    border-bottom: 2px solid black;
 }
+
 
 .buttons .buttons-public .like-btn {
     color: rgb(35, 132, 229)

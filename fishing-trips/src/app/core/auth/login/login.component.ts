@@ -3,24 +3,26 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { from } from 'rxjs';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarModule, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FirebaseError } from '@angular/fire/app';
+import { CommonModule } from '@angular/common';
+import { SnackBarService } from '../../../shared/snackbar.service';
 
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [RouterLink, FormsModule, MatSnackBarModule],
+    imports: [RouterLink, FormsModule, MatSnackBarModule, CommonModule],
     templateUrl: './login.component.html',
     styleUrl: './login.component.css'
 })
 export class LoginComponent {
-    horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-    verticalPosition: MatSnackBarVerticalPosition = 'top'; // Adjust vertical position as needed
+    invalidEmailOrPassword: boolean = false;
 
     constructor(
         private authService: AuthService,
         private router: Router,
-        private snackBar: MatSnackBar) {
+        private snackBar: SnackBarService) {
 
     }
 
@@ -28,16 +30,16 @@ export class LoginComponent {
         if (!this.authService.currentUser) {
             const { email, password } = form.value
             from(this.authService.signIn(email, password)).subscribe({
-                next: UserData => {
-                    this.router.navigate(['/home'])
+                next: () => {
+                    form.reset();
+                    this.router.navigate(['/home']);
+                    this.snackBar.openSnackBar('Login Successful', 3000);
                 },
-                error: err => {
-                    console.error('Sign-in error:', err);
-                    this.snackBar.open(`Failed to sign in. Please try again. ${err.message}`, 'Close', {
-                        duration: 10000,
-                        horizontalPosition: this.horizontalPosition,
-                        verticalPosition: this.verticalPosition
-                    });
+                error: (error: FirebaseError) => {
+
+                    if (error.message.includes('auth/invalid-credential')) {
+                        this.invalidEmailOrPassword = true;
+                    }
                 }
             })
         }

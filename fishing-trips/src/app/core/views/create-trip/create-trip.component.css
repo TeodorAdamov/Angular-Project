@@ -63,3 +63,7 @@ input[type="text"].ng-valid,
 textarea.ng-valid {
     border: 3px solid rgb(22, 210, 66);
 }
+
+.error {
+    color: red
+}

@@ -5,6 +5,10 @@
 
         <label for="password"><b>Password</b></label>
         <input ngModel type="password" placeholder="Enter Password" name="password" required>
+
+        <div class="error" *ngIf="invalidEmailOrPassword">
+            Invalid email or password!
+        </div>
         <button type="submit">Login</button>
     </div>
 
