@@ -31,15 +31,6 @@ export class CreateTripComponent {
             return
         }
 
-        // if (!this.tripService.imageUrl
-        //     || !myTrip.catches
-        //     || !myTrip.description
-        //     || !myTrip.destination
-        //     || !myTrip['fishing-shops']
-        //     || !myTrip['lures-used']
-        //     || !myTrip['fishing-spots']) {
-        //     return;
-        // }
         this.isLoading = true;
         this.tripService.uploadImageThenCreateTrip(myTrip, this.isLoading)
     }
