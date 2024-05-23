@@ -11,7 +11,7 @@
 
         <label for="password"><b>Password *</b></label>
         <input #pass="ngModel" ngModel type="password" placeholder="Enter Password" name="password" required
-            minlength="6" [appPassMatch]="repass.value">
+            minlength="6">
 
             <!-- PASS ERRORS -->
         <ng-container *ngIf="pass.touched">
@@ -30,7 +30,7 @@
             <div class="error" *ngIf="repass.errors?.['minlength']">
                 Pass must be longer than 5 symbols
             </div>
-            <div class="error" *ngIf="repass.errors?.['appPassMatch'] || pass.errors?.['appPassMatch']">
+            <div class="error" *ngIf="repass.errors?.['appPassMatch']">
                 Passwords must match!
             </div>
         </ng-container>
@@ -62,3 +62,5 @@
         <a routerLink="/home"><button type="button" class="cancelbtn">Cancel</button></a>
     </div>
 </form>
+
+<input type="checkbox" [checked]="15 > 5">
