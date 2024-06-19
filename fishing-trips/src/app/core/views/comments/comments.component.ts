@@ -44,7 +44,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
             const id = params.get('id');
             if (id) {
                 this.tripId = id;
-
             }
         })
 
